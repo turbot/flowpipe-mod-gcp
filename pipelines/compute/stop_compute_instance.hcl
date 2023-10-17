@@ -1,4 +1,4 @@
-pipeline "delete_compute_disk" {
+pipeline "stop_compute_instance" {
   param "application_credentials_64" {
     type        = "string"
     default     = var.application_credentials_64
@@ -11,21 +11,21 @@ pipeline "delete_compute_disk" {
     description = "The GCP project ID."
   }
 
-  param "disk_name" {
-    type        = "string"
-    description = "The GCP disk name."
-    default     = "integrated-disk-2023"
-  }
-
   param "zone" {
     type        = "string"
     description = "The GCP zone."
     default     = "us-central1-a"
   }
 
-  step "container" "delete_compute_disk" {
+  param "intance_name" {
+    type        = "string"
+    description = "The GCP instance name."
+    default     = "integrated-instance-2023"
+  }
+
+  step "container" "stop_compute_instance" {
     image = "my-gcloud-image"
-    cmd   = ["compute", "disks", "delete", param.disk_name,"--zone",param.zone]
+    cmd   = ["compute", "instances", "stop",param.intance_name,"--zone", param.zone,"--format=json"]
     env = {
       GCP_CREDS : param.application_credentials_64,
       GCP_PROJECT_ID : param.project_id,
@@ -33,9 +33,9 @@ pipeline "delete_compute_disk" {
   }
 
   output "stdout" {
-    value = step.container.delete_compute_disk.stdout
+    value = step.container.stop_compute_instance.stdout
   }
   output "stderr" {
-    value = step.container.delete_compute_disk.stderr
+    value = step.container.stop_compute_instance.stderr
   }
 }
