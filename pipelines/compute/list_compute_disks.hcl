@@ -2,7 +2,7 @@ pipeline "list_compute_disks" {
   param "application_credentials_64" {
     type        = "string"
     default     = var.application_credentials_64
-    description = "The GCP application credentials."
+    description = "The GCP application credentials encoded in Base64."
   }
 
   param "project_id" {
