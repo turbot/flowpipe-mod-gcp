@@ -11,11 +11,11 @@ echo "$GCP_CREDS" | base64 -d > mycreds.json
 
 # Optionally, you can print the contents of mycreds.json for verification
 # echo "Contents of mycreds.json:"
-cat mycreds.json
+# cat mycreds.json
 
-gcloud auth login --cred-file=mycreds.json
+gcloud auth login --cred-file=mycreds.json > /dev/null 2>&1
 
-gcloud config set project $GCP_PROJECT_ID
+gcloud config set project $GCP_PROJECT_ID > /dev/null 2>&1
 
 # Check if there are additional arguments (commands) passed to the script
 if [ $# -eq 0 ]; then
