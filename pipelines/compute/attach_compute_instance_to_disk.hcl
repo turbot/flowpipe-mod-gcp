@@ -30,8 +30,8 @@ pipeline "attach_compute_instance_to_disk" {
   }
 
   step "container" "attach_compute_instance_to_disk" {
-    image = "my-gcloud-image"
-    cmd   = ["compute", "instances", "attach-disk",param.intance_name, "--disk", param.disk_name, "--zone", param.zone]
+    image = "my-gcloud-image-latest"
+    cmd   = ["compute", "instances", "attach-disk", param.intance_name, "--disk", param.disk_name, "--zone", param.zone]
     env = {
       GCP_CREDS : param.application_credentials_64,
       GCP_PROJECT_ID : param.project_id,

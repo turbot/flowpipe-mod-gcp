@@ -26,15 +26,15 @@ pipeline "add_labels_to_compute_instance" {
   param "labels" {
     type        = "map(string)"
     description = "The GCP labels."
-    default = {"owner" = "1234"
-      "env"   = "dev"
+    default = { "owner" = "1234"
+      "env" = "dev"
     }
   }
 
   step "container" "add_labels_to_compute_instance" {
-    image = "my-gcloud-image"
+    image = "my-gcloud-image-latest"
     cmd = concat(
-      ["compute", "instances", "add-labels", param.intance_name, "--format=json", "--zone", param.zone, "--labels"],
+      ["compute", "instances", "add-labels", param.intance_name, "--zone", param.zone, "--labels"],
       [join(",", [for key, value in param.labels : "${key}=${value}"])]
     )
     env = {

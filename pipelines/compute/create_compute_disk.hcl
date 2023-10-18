@@ -30,8 +30,8 @@ pipeline "create_compute_disks" {
   }
 
   step "container" "list_compute_disks" {
-    image = "my-gcloud-image"
-    cmd   = ["compute", "disks", "create", param.disk_name,"--zone",param.zone,"--size",param.size]
+    image = "my-gcloud-image-latest"
+    cmd   = ["compute", "disks", "create", param.disk_name, "--zone", param.zone, "--size", param.size]
     env = {
       GCP_CREDS : param.application_credentials_64,
       GCP_PROJECT_ID : param.project_id,

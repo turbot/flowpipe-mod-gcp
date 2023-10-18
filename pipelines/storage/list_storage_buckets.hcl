@@ -12,7 +12,7 @@ pipeline "list_storage_buckets" {
   }
 
   step "container" "list_storage_buckets" {
-    image = "my-gcloud-image"
+    image = "my-gcloud-image-latest"
     cmd   = ["storage", "buckets", "list"]
     env = {
       GCP_CREDS : param.application_credentials_64,

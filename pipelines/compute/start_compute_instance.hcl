@@ -24,8 +24,8 @@ pipeline "start_compute_instance" {
   }
 
   step "container" "start_compute_instance" {
-    image = "my-gcloud-image"
-    cmd   = ["compute", "instances", "start",param.intance_name,"--zone", param.zone,"--format=json"]
+    image = "my-gcloud-image-latest"
+    cmd   = ["compute", "instances", "start", param.intance_name, "--zone", param.zone]
     env = {
       GCP_CREDS : param.application_credentials_64,
       GCP_PROJECT_ID : param.project_id,

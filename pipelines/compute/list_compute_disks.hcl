@@ -12,7 +12,7 @@ pipeline "list_compute_disks" {
   }
 
   step "container" "list_compute_disks" {
-    image = "my-gcloud-image"
+    image = "my-gcloud-image-latest"
     cmd   = ["compute", "disks", "list"]
     env = {
       GCP_CREDS : param.application_credentials_64,

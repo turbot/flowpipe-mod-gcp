@@ -36,8 +36,8 @@ pipeline "create_compute_instance" {
   }
 
   step "container" "create_compute_instance" {
-    image = "my-gcloud-image"
-    cmd   = ["compute", "instances", "create",param.intance_name,"--zone", param.zone,"--machine-type",param.machine_type,"--boot-disk-size",param.boot_disk_size]
+    image = "my-gcloud-image-latest"
+    cmd   = ["compute", "instances", "create", param.intance_name, "--zone", param.zone, "--machine-type", param.machine_type, "--boot-disk-size", param.boot_disk_size]
     env = {
       GCP_CREDS : param.application_credentials_64,
       GCP_PROJECT_ID : param.project_id,

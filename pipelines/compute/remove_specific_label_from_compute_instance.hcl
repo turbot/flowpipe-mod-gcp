@@ -26,12 +26,12 @@ pipeline "remove_specific_label_from_compute_instance" {
   param "label_keys" {
     type        = "list(string)"
     description = "The GCP labels."
-    default     = ["env","owner"]
+    default     = ["env", "owner"]
   }
 
   step "container" "remove_specific_label_from_compute_instance" {
-    image = "my-gcloud-image"
-    cmd   = ["compute", "instances", "remove-labels", param.intance_name, "--zone", param.zone,"--format=json","--labels",join(",", param.label_keys)]
+    image = "my-gcloud-image-latest"
+    cmd   = ["compute", "instances", "remove-labels", param.intance_name, "--zone", param.zone,"--labels", join(",", param.label_keys)]
     env = {
       GCP_CREDS : param.application_credentials_64,
       GCP_PROJECT_ID : param.project_id,

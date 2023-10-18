@@ -24,8 +24,8 @@ pipeline "remove_all_labels_from_compute_disk" {
   }
 
   step "container" "remove_all_labels_from_compute_disk" {
-    image = "my-gcloud-image"
-    cmd   = ["compute", "disks", "remove-labels", param.disk_name, "--zone", param.zone,"--all","--format=json"]
+    image = "my-gcloud-image-latest"
+    cmd   = ["compute", "disks", "remove-labels", param.disk_name, "--zone", param.zone, "--all"]
     env = {
       GCP_CREDS : param.application_credentials_64,
       GCP_PROJECT_ID : param.project_id,

@@ -20,7 +20,7 @@ pipeline "update_compute_disk" {
   param "update_labels" {
     type        = "map(string)"
     description = "The GCP labels."
-    default = {"owner123" = "44444"}
+    default     = { "owner123" = "44444" }
   }
 
   param "remove_labels" {
@@ -36,7 +36,7 @@ pipeline "update_compute_disk" {
   }
 
   step "container" "update_compute_disk" {
-    image = "my-gcloud-image"
+    image = "my-gcloud-image-latest"
     cmd = concat(["compute", "disks", "update", param.disk_name, "--zone", param.zone, "--remove-labels", join(",", param.remove_labels), "--update-labels"],
       [join(",", [for key, value in param.update_labels : "${key}=${value}"])]
     )
