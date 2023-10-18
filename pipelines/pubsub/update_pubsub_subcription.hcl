@@ -20,19 +20,21 @@ pipeline "update_pubsub_subscriptions" {
   param "update_labels" {
     type        = "map(string)"
     description = "The GCP labels to update or add to the subscription."
-    default     = { "env" = "prod" }
+    // default     = { "env" = "prod" }
+
   }
 
   param "remove_labels" {
     type        = "list(string)"
     description = "The names of labels to remove from the subscription."
-    default     = ["owner"]
+    // default     = ["owner"]
   }
 
   step "container" "update_pubsub_subscriptions" {
     image = "my-gcloud-image-latest"
-    cmd = concat(["pubsub", "subscriptions", "update", param.subscription_name,"--remove-labels", join(",", param.remove_labels), "--update-labels"], 
-      [join(",", [for key, value in param.update_labels : "${key}=${value}"])]
+    cmd = concat(["pubsub", "subscriptions", "update", param.subscription_name],
+      param.remove_labels != null ? ["--remove-labels", join(",", param.remove_labels)] : [],
+      param.update_labels != null ? ["--update-labels", join(",", [for key, value in param.update_labels : "${key}=${value}"])] : []
     )
     env = {
       GCP_CREDS      = param.application_credentials_64,

@@ -31,8 +31,9 @@ pipeline "update_pubsub_topics" {
 
   step "container" "update_pubsub_topics" {
     image = "my-gcloud-image-latest"
-    cmd = concat(["pubsub", "topics", "update",param.topic_name,"--remove-labels",join(",", param.remove_labels), "--update-labels"],
-      [join(",", [for key, value in param.update_labels : "${key}=${value}"])]
+    cmd = concat(["pubsub", "topics", "update", param.topic_name],
+      param.remove_labels != null ? ["--remove-labels", join(",", param.remove_labels)] : [],
+      param.update_labels != null ? ["--update-labels", join(",", [for key, value in param.update_labels : "${key}=${value}"])] : []
     )
     env = {
       GCP_CREDS : param.application_credentials_64,

@@ -14,9 +14,9 @@ pipeline "create_pubsub_topics" {
   param "labels" {
     type        = "map(string)"
     description = "The GCP labels."
-    default = { "owner" = "1234"
-      "env" = "dev"
-    }
+    // default = { "owner" = "1234"
+    //   "env" = "dev"
+    // }
   }
 
   param "topic_names" {
@@ -27,7 +27,10 @@ pipeline "create_pubsub_topics" {
 
   step "container" "create_pubsub_topics" {
     image = "my-gcloud-image-latest"
-    cmd   = concat(["pubsub", "topics", "create"], param.topic_names, ["--labels"], [join(",", [for key, value in param.labels : "${key}=${value}"])])
+    cmd = concat(["pubsub", "topics", "create"],
+      param.topic_names,
+      param.labels != null ? ["--labels", join(",", [for key, value in param.labels : "${key}=${value}"])] : []
+    )
     env = {
       GCP_CREDS : param.application_credentials_64,
       GCP_PROJECT_ID : param.project_id,
@@ -35,9 +38,9 @@ pipeline "create_pubsub_topics" {
   }
 
   output "stdout" {
-    value = step.container.create_pubsub_topics.stdout
+    value = jsondecode(replace(step.container.create_pubsub_topics.stdout, "/^Created \\[.*\\]\\.\n/gm", ""))
   }
   output "stderr" {
-    value = step.container.create_pubsub_topics.stderr
+    value = jsondecode(replace(step.container.create_pubsub_topics.stderr, "/^Created \\[.*\\]\\.\n/gm", ""))
   }
 }

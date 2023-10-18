@@ -1,4 +1,4 @@
-pipeline "create_compute_disks" {
+pipeline "create_compute_disk" {
   param "application_credentials_64" {
     type        = "string"
     default     = var.application_credentials_64
@@ -29,7 +29,7 @@ pipeline "create_compute_disks" {
     default     = "10GB"
   }
 
-  step "container" "list_compute_disks" {
+  step "container" "create_compute_disk" {
     image = "my-gcloud-image-latest"
     cmd   = ["compute", "disks", "create", param.disk_name, "--zone", param.zone, "--size", param.size]
     env = {
@@ -39,9 +39,9 @@ pipeline "create_compute_disks" {
   }
 
   output "stdout" {
-    value = step.container.create_compute_disks.stdout
+    value = step.container.create_compute_disk.stdout
   }
   output "stderr" {
-    value = step.container.create_compute_disks.stderr
+    value = step.container.create_compute_disk.stderr
   }
 }
