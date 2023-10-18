@@ -18,11 +18,11 @@ pipeline "create_storage_buckets" {
   }
 
   step "container" "create_storage_buckets" {
-    image = "my-gcloud-image-latest-latest"
+    image = "my-gcloud-image-latest"
     cmd   = concat(["storage", "buckets", "create"], param.bucket_urls)
     env = {
-      GCP_CREDS : param.application_credentials_64,
-      GCP_PROJECT_ID : param.project_id,
+      GCP_CREDS: param.application_credentials_64,
+      GCP_PROJECT_ID: param.project_id,
     }
   }
 

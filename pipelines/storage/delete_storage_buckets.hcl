@@ -18,7 +18,7 @@ pipeline "delete_storage_buckets" {
   }
 
   step "container" "delete_storage_buckets" {
-    image = "my-gcloud-image-latest-latest"
+    image = "my-gcloud-image-latest"
     cmd   = concat(["storage", "buckets", "delete"], param.bucket_urls)
     env = {
       GCP_CREDS : param.application_credentials_64,
