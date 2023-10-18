@@ -24,5 +24,5 @@ if [ $# -eq 0 ]; then
 fi
 
 # Prepend "gcloud" to the provided command and execute it
-echo "Executing command: gcloud $@"
-gcloud "$@"
+echo "Executing command: gcloud "$@" --format json"
+gcloud "$@" --format json
