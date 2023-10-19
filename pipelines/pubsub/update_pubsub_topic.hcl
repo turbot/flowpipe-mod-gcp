@@ -29,9 +29,16 @@ pipeline "update_pubsub_topics" {
     description = "The names of the topic to update."
   }
 
+  param "message_retention_duration" {
+    type        = "string"
+    optional    = true
+    description = "The duration to retain messages."
+  }
+
   step "container" "update_pubsub_topics" {
     image = "my-gcloud-image-latest"
     cmd = concat(["pubsub", "topics", "update", param.topic_name],
+      param.message_retention_duration != null ? ["--message-retention-duration", param.message_retention_duration] : [],
       param.remove_labels != null ? ["--remove-labels", join(",", param.remove_labels)] : [],
       param.update_labels != null ? ["--update-labels", join(",", [for key, value in param.update_labels : "${key}=${value}"])] : []
     )

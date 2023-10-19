@@ -1,4 +1,5 @@
 pipeline "create_compute_instance" {
+  title = "Create a GCP compute instance."
   param "application_credentials_64" {
     type        = "string"
     default     = var.application_credentials_64
@@ -6,6 +7,7 @@ pipeline "create_compute_instance" {
   }
 
   param "project_id" {
+    title       = "Project ID"
     type        = "string"
     default     = var.project_id
     description = "The GCP project ID."

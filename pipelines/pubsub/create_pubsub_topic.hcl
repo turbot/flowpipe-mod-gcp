@@ -13,6 +13,7 @@ pipeline "create_pubsub_topics" {
 
   param "labels" {
     type        = "map(string)"
+    optional    = true
     description = "The GCP labels."
     // default = { "owner" = "1234"
     //   "env" = "dev"
@@ -38,9 +39,9 @@ pipeline "create_pubsub_topics" {
   }
 
   output "stdout" {
-    value = jsondecode(replace(step.container.create_pubsub_topics.stdout, "/^Created \\[.*\\]\\.\n/gm", ""))
+    value = jsondecode(step.container.create_pubsub_topics.stdout)
   }
   output "stderr" {
-    value = jsondecode(replace(step.container.create_pubsub_topics.stderr, "/^Created \\[.*\\]\\.\n/gm", ""))
+    value = step.container.create_pubsub_topics.stderr
   }
 }
