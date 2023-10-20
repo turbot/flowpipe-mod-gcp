@@ -1,5 +1,5 @@
 pipeline "create_compute_instance" {
-  title = "Create a GCP compute instance."
+  title = "Create a GCP compute instance"
   param "application_credentials_64" {
     type        = "string"
     default     = var.application_credentials_64

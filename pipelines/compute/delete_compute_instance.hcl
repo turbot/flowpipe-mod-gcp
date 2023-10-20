@@ -1,26 +1,25 @@
 pipeline "delete_compute_instance" {
+  title       = "Delete a GCP compute instance."
+  description = "This pipeline will delete a GCP compute instance."
+
   param "application_credentials_64" {
-    type        = "string"
-    default     = var.application_credentials_64
-    description = "The GCP application credentials."
+    type    = "string"
+    default = var.application_credentials_64
   }
 
   param "project_id" {
-    type        = "string"
-    default     = var.project_id
-    description = "The GCP project ID."
+    type    = "string"
+    default = var.project_id
   }
 
   param "zone" {
     type        = "string"
     description = "The GCP zone."
-    default     = "us-central1-a"
   }
 
   param "intance_name" {
     type        = "string"
     description = "The GCP instance name."
-    default     = "integrated-instance-2023"
   }
 
   step "container" "delete_compute_instance" {

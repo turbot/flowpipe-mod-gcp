@@ -14,13 +14,11 @@ pipeline "delete_compute_disk" {
   param "disk_name" {
     type        = "string"
     description = "The GCP disk name."
-    default     = "integrated-disk-2023"
   }
 
   param "zone" {
     type        = "string"
     description = "The GCP zone."
-    default     = "us-central1-a"
   }
 
   step "container" "delete_compute_disk" {

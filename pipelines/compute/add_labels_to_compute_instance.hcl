@@ -1,5 +1,5 @@
 pipeline "add_labels_to_compute_instance" {
-  title       = "Add labels to a GCP compute instance."
+  title       = "Add labels to a GCP compute instance"
   description = "This pipeline adds labels to a GCP compute instance."
 
   param "application_credentials_64" {

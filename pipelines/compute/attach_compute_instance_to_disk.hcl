@@ -1,5 +1,5 @@
 pipeline "attach_compute_instance_to_disk" {
-  title       = "Attach a GCP compute instance to a disk."
+  title       = "Attach a GCP compute instance to a disk"
   description = "This pipeline attaches a GCP compute instance to a disk."
 
   param "application_credentials_64" {
