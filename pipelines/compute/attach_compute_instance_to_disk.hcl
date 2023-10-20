@@ -1,4 +1,7 @@
 pipeline "attach_compute_instance_to_disk" {
+  title       = "Attach a GCP compute instance to a disk."
+  description = "This pipeline attaches a GCP compute instance to a disk."
+
   param "application_credentials_64" {
     type        = "string"
     default     = var.application_credentials_64
@@ -14,19 +17,16 @@ pipeline "attach_compute_instance_to_disk" {
   param "intance_name" {
     type        = "string"
     description = "The GCP instance name."
-    default     = "integrated-instance-2023"
   }
 
   param "disk_name" {
     type        = "string"
     description = "The GCP disk name."
-    default     = "integrated-disk-2023"
   }
 
   param "zone" {
     type        = "string"
     description = "The GCP zone."
-    default     = "us-central1-a"
   }
 
   step "container" "attach_compute_instance_to_disk" {
@@ -39,9 +39,11 @@ pipeline "attach_compute_instance_to_disk" {
   }
 
   output "stdout" {
-    value = step.container.attach_compute_instance_to_disk.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.attach_compute_instance_to_disk.stdout
   }
   output "stderr" {
-    value = step.container.attach_compute_instance_to_disk.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.attach_compute_instance_to_disk.stderr
   }
 }

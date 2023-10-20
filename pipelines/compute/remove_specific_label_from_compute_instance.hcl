@@ -31,7 +31,7 @@ pipeline "remove_specific_label_from_compute_instance" {
 
   step "container" "remove_specific_label_from_compute_instance" {
     image = "my-gcloud-image-latest"
-    cmd   = ["compute", "instances", "remove-labels", param.intance_name, "--zone", param.zone,"--labels", join(",", param.label_keys)]
+    cmd   = ["compute", "instances", "remove-labels", param.intance_name, "--zone", param.zone, "--labels", join(",", param.label_keys)]
     env = {
       GCP_CREDS : param.application_credentials_64,
       GCP_PROJECT_ID : param.project_id,
@@ -39,9 +39,11 @@ pipeline "remove_specific_label_from_compute_instance" {
   }
 
   output "stdout" {
-    value = step.container.remove_specific_label_from_compute_instance.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.remove_specific_label_from_compute_instance.stdout
   }
   output "stderr" {
-    value = step.container.remove_specific_label_from_compute_instance.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.remove_specific_label_from_compute_instance.stderr
   }
 }

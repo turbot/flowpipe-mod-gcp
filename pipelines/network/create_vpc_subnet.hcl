@@ -35,7 +35,7 @@ pipeline "create_vpc_subnet" {
       "compute", "networks", "subnets", "create", param.subnet_name,
       "--network", param.network_name,
       "--region", param.region,
-      "--range", "10.0.0.0/24", 
+      "--range", "10.0.0.0/24",
     ]
     env = {
       GCP_CREDS      = param.application_credentials_64,
@@ -44,10 +44,12 @@ pipeline "create_vpc_subnet" {
   }
 
   output "stdout" {
-    value = step.container.create_vpc_subnet.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.create_vpc_subnet.stdout
   }
 
   output "stderr" {
-    value = step.container.create_vpc_subnet.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.create_vpc_subnet.stderr
   }
 }

@@ -21,9 +21,11 @@ pipeline "list_storage_buckets" {
   }
 
   output "stdout" {
-    value = step.container.list_storage_buckets.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.list_storage_buckets.stdout
   }
   output "stderr" {
-    value = step.container.list_storage_buckets.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.list_storage_buckets.stderr
   }
 }

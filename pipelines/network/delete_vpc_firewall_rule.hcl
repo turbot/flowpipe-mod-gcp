@@ -19,7 +19,7 @@ pipeline "delete_vpc_firewall_rule" {
 
   step "container" "delete_vpc_firewall_rule" {
     image = "my-gcloud-image-latest"
-    cmd = ["compute", "firewall-rules", "delete", param.firewall_rule_name]
+    cmd   = ["compute", "firewall-rules", "delete", param.firewall_rule_name]
     env = {
       GCP_CREDS      = param.application_credentials_64,
       GCP_PROJECT_ID = param.project_id,
@@ -27,10 +27,12 @@ pipeline "delete_vpc_firewall_rule" {
   }
 
   output "stdout" {
-    value = step.container.delete_vpc_firewall_rule.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.delete_vpc_firewall_rule.stdout
   }
 
   output "stderr" {
-    value = step.container.delete_vpc_firewall_rule.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.delete_vpc_firewall_rule.stderr
   }
 }

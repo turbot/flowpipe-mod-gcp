@@ -1,4 +1,7 @@
 pipeline "create_compute_disk" {
+  title       = "Create a GCP compute disk"
+  description = "This pipeline creates a GCP compute disk."
+
   param "application_credentials_64" {
     type        = "string"
     default     = var.application_credentials_64
@@ -14,19 +17,16 @@ pipeline "create_compute_disk" {
   param "disk_name" {
     type        = "string"
     description = "The GCP disk name."
-    default     = "integrated-disk-2023"
   }
 
   param "zone" {
     type        = "string"
     description = "The GCP zone."
-    default     = "us-central1-a"
   }
 
   param "size" {
     type        = "string"
     description = "The GCP zone."
-    default     = "10GB"
   }
 
   step "container" "create_compute_disk" {
@@ -39,9 +39,11 @@ pipeline "create_compute_disk" {
   }
 
   output "stdout" {
-    value = step.container.create_compute_disk.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.create_compute_disk.stdout
   }
   output "stderr" {
-    value = step.container.create_compute_disk.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.create_compute_disk.stderr
   }
 }

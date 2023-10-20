@@ -43,10 +43,12 @@ pipeline "update_pubsub_subscriptions" {
   }
 
   output "stdout" {
-    value = step.container.update_pubsub_subscriptions.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.update_pubsub_subscriptions.stdout
   }
 
   output "stderr" {
-    value = step.container.update_pubsub_subscriptions.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.update_pubsub_subscriptions.stderr
   }
 }

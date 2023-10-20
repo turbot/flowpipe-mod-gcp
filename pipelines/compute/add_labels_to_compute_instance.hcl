@@ -1,4 +1,7 @@
 pipeline "add_labels_to_compute_instance" {
+  title       = "Add labels to a GCP compute instance."
+  description = "This pipeline adds labels to a GCP compute instance."
+
   param "application_credentials_64" {
     type        = "string"
     default     = var.application_credentials_64
@@ -14,21 +17,16 @@ pipeline "add_labels_to_compute_instance" {
   param "zone" {
     type        = "string"
     description = "The GCP zone."
-    default     = "us-central1-a"
   }
 
   param "intance_name" {
     type        = "string"
     description = "The GCP instance name."
-    default     = "integrated-instance-2023"
   }
 
   param "labels" {
     type        = "map(string)"
     description = "The GCP labels."
-    default = { "owner" = "1234"
-      "env" = "dev"
-    }
   }
 
   step "container" "add_labels_to_compute_instance" {
@@ -44,9 +42,11 @@ pipeline "add_labels_to_compute_instance" {
   }
 
   output "stdout" {
-    value = step.container.add_labels_to_compute_instance.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.add_labels_to_compute_instance.stdout
   }
   output "stderr" {
-    value = step.container.add_labels_to_compute_instance.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.add_labels_to_compute_instance.stderr
   }
 }

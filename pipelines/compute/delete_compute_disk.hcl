@@ -33,9 +33,11 @@ pipeline "delete_compute_disk" {
   }
 
   output "stdout" {
-    value = step.container.delete_compute_disk.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.delete_compute_disk.stdout
   }
   output "stderr" {
-    value = step.container.delete_compute_disk.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.delete_compute_disk.stderr
   }
 }

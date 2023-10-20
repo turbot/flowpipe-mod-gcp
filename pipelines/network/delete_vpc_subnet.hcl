@@ -25,7 +25,7 @@ pipeline "delete_vpc_subnet" {
 
   step "container" "delete_vpc_subnet" {
     image = "my-gcloud-image-latest"
-    cmd = ["compute", "networks", "subnets", "delete", param.subnet_name,"--region", param.region]
+    cmd   = ["compute", "networks", "subnets", "delete", param.subnet_name, "--region", param.region]
     env = {
       GCP_CREDS      = param.application_credentials_64,
       GCP_PROJECT_ID = param.project_id,
@@ -33,10 +33,12 @@ pipeline "delete_vpc_subnet" {
   }
 
   output "stdout" {
-    value = step.container.delete_vpc_subnet.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.delete_vpc_subnet.stdout
   }
 
   output "stderr" {
-    value = step.container.delete_vpc_subnet.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.delete_vpc_subnet.stderr
   }
 }

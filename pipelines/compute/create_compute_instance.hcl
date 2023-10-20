@@ -16,25 +16,21 @@ pipeline "create_compute_instance" {
   param "zone" {
     type        = "string"
     description = "The GCP zone."
-    default     = "us-central1-a"
   }
 
   param "machine_type" {
     type        = "string"
     description = "The GCP machine type."
-    default     = "e2-micro"
   }
 
   param "intance_name" {
     type        = "string"
     description = "The GCP instance name."
-    default     = "integrated-instance-2023"
   }
 
   param "boot_disk_size" {
     type        = "string"
     description = "The GCP boot disk size."
-    default     = "10GB"
   }
 
   step "container" "create_compute_instance" {
@@ -47,9 +43,11 @@ pipeline "create_compute_instance" {
   }
 
   output "stdout" {
-    value = step.container.create_compute_instance.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.create_compute_instance.stdout
   }
   output "stderr" {
-    value = step.container.create_compute_instance.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.create_compute_instance.stderr
   }
 }

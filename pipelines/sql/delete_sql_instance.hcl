@@ -19,7 +19,7 @@ pipeline "delete_sql_instance" {
 
   step "container" "delete_sql_instance" {
     image = "my-gcloud-image-latest"
-    cmd = ["sql", "instances", "delete", param.instance_name]
+    cmd   = ["sql", "instances", "delete", param.instance_name]
     env = {
       GCP_CREDS      = param.application_credentials_64,
       GCP_PROJECT_ID = param.project_id,
@@ -27,10 +27,12 @@ pipeline "delete_sql_instance" {
   }
 
   output "stdout" {
-    value = step.container.delete_sql_instance.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.delete_sql_instance.stdout
   }
 
   output "stderr" {
-    value = step.container.delete_sql_instance.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.delete_sql_instance.stderr
   }
 }
