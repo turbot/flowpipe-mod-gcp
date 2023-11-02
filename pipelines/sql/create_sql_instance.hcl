@@ -1,32 +1,29 @@
 pipeline "create_sql_instance" {
-  param "application_credentials_64" {
-    type        = "string"
-    default     = var.application_credentials_64
-    description = "The GCP application credentials."
+  param "application_credentials_path" {
+    type        = string
+    default     = var.application_credentials_path
+    description = "The GCP application credentials file path."
   }
 
   param "project_id" {
-    type        = "string"
+    type        = string
     default     = var.project_id
     description = "The GCP project ID."
   }
 
   param "instance_name" {
-    type        = "string"
+    type        = string
     description = "The name of the Cloud SQL instance to create."
-    default     = "my-sql-instance"
   }
 
   param "region" {
-    type        = "string"
+    type        = string
     description = "The GCP region for the Cloud SQL instance."
-    default     = "us-central1"
   }
 
   param "database_version" {
-    type        = "string"
+    type        = string
     description = "The version of the Cloud SQL database (e.g., MYSQL_8_0)."
-    default     = "MYSQL_8_0"
   }
 
   step "container" "create_sql_instance" {
@@ -37,7 +34,7 @@ pipeline "create_sql_instance" {
       "--database-version", param.database_version
     ]
     env = {
-      GCP_CREDS      = param.application_credentials_64,
+      GCP_CREDS      = file(param.application_credentials_path),
       GCP_PROJECT_ID = param.project_id,
     }
   }

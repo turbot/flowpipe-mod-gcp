@@ -1,47 +1,46 @@
 pipeline "update_compute_disk" {
-  param "application_credentials_64" {
-    type        = "string"
-    default     = var.application_credentials_64
-    description = "The GCP application credentials."
+  param "application_credentials_path" {
+    type        = string
+    default     = var.application_credentials_path
+    description = "The GCP application credentials file path."
   }
 
   param "project_id" {
-    type        = "string"
+    type        = string
     default     = var.project_id
     description = "The GCP project ID."
   }
 
   param "zone" {
-    type        = "string"
+    type        = string
     description = "The GCP zone."
-    default     = "us-central1-a"
   }
 
   param "update_labels" {
     type        = "map(string)"
+    optional    = true
     description = "The GCP labels."
-    default     = { "owner123" = "44444" }
   }
 
   param "remove_labels" {
     type        = "list(string)"
+    optional    = true
     description = "The GCP labels."
-    default     = ["env"]
   }
 
   param "disk_name" {
-    type        = "string"
+    type        = string
     description = "The GCP disk name."
-    default     = "integrated-disk-2023"
   }
 
   step "container" "update_compute_disk" {
     image = "my-gcloud-image-latest"
-    cmd = concat(["compute", "disks", "update", param.disk_name, "--zone", param.zone, "--remove-labels", join(",", param.remove_labels), "--update-labels"],
-      [join(",", [for key, value in param.update_labels : "${key}=${value}"])]
+    cmd = concat(["compute", "disks", "update", param.disk_name, "--zone", param.zone],
+      param.remove_labels != null ? ["--remove-labels", join(",", param.remove_labels)] : [],
+      param.update_labels != null ? ["--update-labels", join(",", [for key, value in param.update_labels : "${key}=${value}"])] : []
     )
     env = {
-      GCP_CREDS : param.application_credentials_64,
+      GCP_CREDS : file(param.application_credentials_path),
       GCP_PROJECT_ID : param.project_id,
     }
   }

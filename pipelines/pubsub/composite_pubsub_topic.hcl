@@ -1,28 +1,27 @@
 pipeline "manage_pubsub_topic" {
-  param "application_credentials_64" {
-    type        = "string"
-    default     = var.application_credentials_64
-    description = "The GCP application credentials."
+  param "application_credentials_path" {
+    type        = string
+    default     = var.application_credentials_path
+    description = "The GCP application credentials file path."
   }
 
   param "project_id" {
-    type        = "string"
+    type        = string
     default     = var.project_id
     description = "The GCP project ID."
   }
 
   param "topic_name" {
     type        = "list(string))"
-    default     = ["my-pubsub-topic-${uuid()}"]
     description = "The name of the Pub/Sub topic."
   }
 
   step "pipeline" "create_pubsub_topic" {
     pipeline = pipeline.create_pubsub_topics
     args = {
-      application_credentials_64 = param.application_credentials_64
-      project_id                 = param.project_id
-      topic_names                = param.topic_name
+      application_credentials_path = param.application_credentials_path
+      project_id                   = param.project_id
+      topic_names                  = param.topic_name
     }
   }
 
@@ -32,9 +31,9 @@ pipeline "manage_pubsub_topic" {
     depends_on = [step.pipeline.create_pubsub_topic]
     pipeline   = pipeline.delete_pubsub_topics
     args = {
-      application_credentials_64 = param.application_credentials_64
-      project_id                 = param.project_id
-      topic_names                = param.topic_name
+      application_credentials_path = param.application_credentials_path
+      project_id                   = param.project_id
+      topic_names                  = param.topic_name
     }
   }
 
@@ -49,7 +48,7 @@ pipeline "manage_pubsub_topic" {
   }
 
   output "delete_pubsub_topic" {
-    value       = startswith(step.pipeline.delete_pubsub_topic.stderr, "ERROR:") ? "failed: ${step.pipeline.delete_pubsub_topic.stderr}" : "passed"
+    value = startswith(step.pipeline.delete_pubsub_topic.stderr, "ERROR:") ? "failed: ${step.pipeline.delete_pubsub_topic.stderr}" : "passed"
   }
 
   // output "create_pubsub_topic" {
