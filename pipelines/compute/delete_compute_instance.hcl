@@ -1,5 +1,5 @@
 pipeline "delete_compute_instance" {
-  title       = "Delete a GCP compute instance."
+  title       = "Delete a GCP compute instance"
   description = "This pipeline will delete a GCP compute instance."
 
   param "application_credentials_path" {

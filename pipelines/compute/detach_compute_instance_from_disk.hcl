@@ -1,4 +1,7 @@
 pipeline "detach_compute_instance_from_disk" {
+  title       = "Detach a GCP compute instance from a disk"
+  description = "This pipeline detaches a GCP compute instance from a disk."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

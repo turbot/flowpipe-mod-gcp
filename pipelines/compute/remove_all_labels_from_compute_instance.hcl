@@ -1,4 +1,7 @@
 pipeline "remove_labels_from_compute_instance" {
+  title       = "Remove labels from a GCP compute instance"
+  description = "This pipeline removes all labels from a GCP compute instance."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

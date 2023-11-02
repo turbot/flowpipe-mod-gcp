@@ -1,4 +1,7 @@
 pipeline "create_storage_buckets" {
+  title       = "Create GCP storage buckets"
+  description = "This pipeline creates GCP storage buckets."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

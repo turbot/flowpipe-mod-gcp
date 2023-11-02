@@ -1,4 +1,7 @@
 pipeline "create_vpc_network" {
+  title       = "Create VPC"
+  description = "Creates a new Virtual Private Cloud (VPC) in your GCP account."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

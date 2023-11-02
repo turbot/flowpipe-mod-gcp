@@ -1,4 +1,7 @@
 pipeline "stop_compute_instance" {
+  title       = "Stop a GCP compute instance"
+  description = "This pipeline stops a GCP compute instance."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

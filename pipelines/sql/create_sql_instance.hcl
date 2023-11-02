@@ -1,4 +1,7 @@
 pipeline "create_sql_instance" {
+  title       = "Create a Cloud SQL instance"
+  description = "This pipeline creates a GCP Cloud SQL instance."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

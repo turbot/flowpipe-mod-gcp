@@ -1,4 +1,7 @@
 pipeline "manage_pubsub_topic" {
+  title       = "Manage Pub/Sub topic"
+  description = "Create and delete Pub/Sub topics in a GCP project."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

@@ -1,4 +1,7 @@
 pipeline "start_compute_instance" {
+  title       = "Start a GCP compute instance"
+  description = "This pipeline starts a GCP compute instance."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

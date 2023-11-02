@@ -1,4 +1,7 @@
 pipeline "delete_pubsub_subscriptions" {
+  title       = "Delete Pub/Sub Subscriptions"
+  description = "This pipeline deletes Pub/Sub subscriptions in a GCP project."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

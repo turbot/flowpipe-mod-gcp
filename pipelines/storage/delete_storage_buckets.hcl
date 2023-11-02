@@ -1,4 +1,7 @@
 pipeline "delete_storage_buckets" {
+  title       = "Delete GCP storage buckets"
+  description = "This pipeline deletes GCP storage buckets."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

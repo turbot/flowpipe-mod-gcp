@@ -1,4 +1,7 @@
 pipeline "list_pubsub_topics" {
+  title       = "List Pub/Sub Topics"
+  description = "List all Pub/Sub topics in a GCP project."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

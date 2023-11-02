@@ -1,4 +1,7 @@
 pipeline "update_compute_disk" {
+  title       = "Update a GCP compute disk"
+  description = "This pipeline updates a GCP compute disk."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

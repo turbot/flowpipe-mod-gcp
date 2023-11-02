@@ -1,4 +1,7 @@
 pipeline "update_compute_instance" {
+  title       = "Update a GCP compute instance"
+  description = "This pipeline updates a GCP compute instance."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

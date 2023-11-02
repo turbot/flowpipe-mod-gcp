@@ -1,4 +1,7 @@
 pipeline "update_pubsub_topics" {
+  title       = "Update GCP Pub/Sub Topics"
+  description = "This pipeline updates GCP Pub/Sub Topics."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

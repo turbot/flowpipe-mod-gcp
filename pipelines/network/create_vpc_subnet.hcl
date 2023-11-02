@@ -1,4 +1,7 @@
 pipeline "create_vpc_subnet" {
+  title       = "Create VPC Subnet"
+  description = "Creates a new subnet in an existing Virtual Private Cloud (VPC) in your GCP account."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

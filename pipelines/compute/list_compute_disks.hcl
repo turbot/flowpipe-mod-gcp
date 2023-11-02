@@ -1,4 +1,7 @@
 pipeline "list_compute_disks" {
+  title       = "List Compute Disks"
+  description = "This pipeline lists all Compute Engine disks in a GCP project."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

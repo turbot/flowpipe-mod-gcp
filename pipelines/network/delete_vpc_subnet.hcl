@@ -1,4 +1,7 @@
 pipeline "delete_vpc_subnet" {
+  title       = "Delete a VPC subnet"
+  description = "Deletes a VPC subnet in GCP."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

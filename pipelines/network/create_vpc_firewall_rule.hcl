@@ -1,4 +1,7 @@
 pipeline "create_vpc_firewall_rule" {
+  title       = "Create a VPC firewall rule"
+  description = "Creates a firewall rule in GCP VPC network."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

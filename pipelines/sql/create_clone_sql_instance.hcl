@@ -1,4 +1,7 @@
 pipeline "clone_sql_instance" {
+  title       = "Clone a Cloud SQL instance"
+  description = "This pipeline clones a GCP Cloud SQL instance."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

@@ -1,4 +1,7 @@
 pipeline "delete_sql_instance" {
+  title       = "Delete a Cloud SQL instance"
+  description = "Delete a GCP Cloud SQL instance."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

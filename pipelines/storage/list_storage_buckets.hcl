@@ -1,4 +1,7 @@
 pipeline "list_storage_buckets" {
+  title       = "List GCP Storage Buckets"
+  description = "List all GCP Storage buckets in a project."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

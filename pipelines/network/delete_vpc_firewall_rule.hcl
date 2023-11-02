@@ -1,4 +1,7 @@
 pipeline "delete_vpc_firewall_rule" {
+  title       = "Delete a VPC firewall rule"
+  description = "This pipeline deletes a VPC firewall rule in your GCP account."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

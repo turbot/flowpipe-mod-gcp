@@ -1,4 +1,7 @@
 pipeline "create_pubsub_topics" {
+  title       = "Create Pub/Sub Topics"
+  description = "This pipeline creates Pub/Sub topics in a GCP project."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path

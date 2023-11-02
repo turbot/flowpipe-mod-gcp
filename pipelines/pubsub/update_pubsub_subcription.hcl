@@ -1,4 +1,7 @@
 pipeline "update_pubsub_subscriptions" {
+  title       = "Update GCP Pub/Sub Subscriptions"
+  description = "This pipeline updates the labels on a GCP Pub/Sub subscription."
+
   param "application_credentials_path" {
     type        = string
     default     = var.application_credentials_path
