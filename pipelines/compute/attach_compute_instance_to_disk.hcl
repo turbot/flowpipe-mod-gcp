@@ -42,6 +42,7 @@ pipeline "attach_compute_instance_to_disk" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.attach_compute_instance_to_disk.stdout
   }
+
   output "stderr" {
     description = "The error output from the GCP CLI."
     value       = step.container.attach_compute_instance_to_disk.stderr

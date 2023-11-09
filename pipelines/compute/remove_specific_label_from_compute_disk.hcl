@@ -42,6 +42,7 @@ pipeline "remove_specific_label_from_compute_disk" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.remove_specific_label_from_compute_disk.stdout
   }
+
   output "stderr" {
     description = "The error output from the GCP CLI."
     value       = step.container.remove_specific_label_from_compute_disk.stderr

@@ -42,6 +42,7 @@ pipeline "detach_compute_instance_from_disk" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.detach_compute_instance_from_disk.stdout
   }
+
   output "stderr" {
     description = "The error output from the GCP CLI."
     value       = step.container.detach_compute_instance_from_disk.stderr

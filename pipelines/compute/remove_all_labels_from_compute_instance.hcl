@@ -24,11 +24,6 @@ pipeline "remove_labels_from_compute_instance" {
     description = "The GCP instance name."
   }
 
-  param "labels" {
-    type        = "map(string)"
-    description = "The GCP labels."
-  }
-
   step "container" "remove_labels_from_compute_instance" {
     image = "my-gcloud-image-latest"
     cmd   = ["compute", "instances", "remove-labels", param.intance_name, "--zone", param.zone, "--all"]
@@ -42,6 +37,7 @@ pipeline "remove_labels_from_compute_instance" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.remove_labels_from_compute_instance.stdout
   }
+
   output "stderr" {
     description = "The error output from the GCP CLI."
     value       = step.container.remove_labels_from_compute_instance.stderr
