@@ -1,19 +1,21 @@
 pipeline "delete_pubsub_subscriptions" {
-  param "application_credentials_64" {
-    type        = "string"
-    default     = var.application_credentials_64
-    description = "The GCP application credentials."
+  title       = "Delete Pub/Sub Subscriptions"
+  description = "This pipeline deletes Pub/Sub subscriptions in a GCP project."
+
+  param "application_credentials_path" {
+    type        = string
+    default     = var.application_credentials_path
+    description = "The GCP application credentials file path."
   }
 
   param "project_id" {
-    type        = "string"
+    type        = string
     default     = var.project_id
     description = "The GCP project ID."
   }
 
   param "subscription_names" {
     type        = "list(string)"
-    default     = ["my-subscription-1", "my-subscription-2"]
     description = "The names of the subscriptions to delete."
   }
 
@@ -21,15 +23,17 @@ pipeline "delete_pubsub_subscriptions" {
     image = "my-gcloud-image-latest"
     cmd   = concat(["pubsub", "subscriptions", "delete"], param.subscription_names)
     env = {
-      GCP_CREDS : param.application_credentials_64,
+      GCP_CREDS : file(param.application_credentials_path),
       GCP_PROJECT_ID : param.project_id,
     }
   }
 
   output "stdout" {
-    value = step.container.delete_pubsub_subscriptions.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.delete_pubsub_subscriptions.stdout
   }
   output "stderr" {
-    value = step.container.delete_pubsub_subscriptions.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.delete_pubsub_subscriptions.stderr
   }
 }

@@ -1,32 +1,37 @@
 pipeline "create_vpc_subnet" {
-  param "application_credentials_64" {
-    type        = "string"
-    default     = var.application_credentials_64
-    description = "The GCP application credentials."
+  title       = "Create VPC Subnet"
+  description = "Creates a new subnet in an existing Virtual Private Cloud (VPC) in your GCP account."
+
+  param "application_credentials_path" {
+    type        = string
+    default     = var.application_credentials_path
+    description = "The GCP application credentials file path."
   }
 
   param "project_id" {
-    type        = "string"
+    type        = string
     default     = var.project_id
     description = "The GCP project ID."
   }
 
   param "network_name" {
-    type        = "string"
+    type        = string
     description = "The name of the existing VPC network."
-    default     = "integrated-vpc"
   }
 
   param "subnet_name" {
-    type        = "string"
+    type        = string
     description = "The name of the subnet to create."
-    default     = "integrated-subnet"
   }
 
   param "region" {
-    type        = "string"
+    type        = string
     description = "The GCP region for the subnet."
-    default     = "us-central1"
+  }
+
+  param "range" {
+    type        = string
+    description = "The GCP region for the subnet."
   }
 
   step "container" "create_vpc_subnet" {
@@ -35,19 +40,21 @@ pipeline "create_vpc_subnet" {
       "compute", "networks", "subnets", "create", param.subnet_name,
       "--network", param.network_name,
       "--region", param.region,
-      "--range", "10.0.0.0/24", 
+      "--range", param.range,
     ]
     env = {
-      GCP_CREDS      = param.application_credentials_64,
+      GCP_CREDS      = file(param.application_credentials_path),
       GCP_PROJECT_ID = param.project_id,
     }
   }
 
   output "stdout" {
-    value = step.container.create_vpc_subnet.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.create_vpc_subnet.stdout
   }
 
   output "stderr" {
-    value = step.container.create_vpc_subnet.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.create_vpc_subnet.stderr
   }
 }

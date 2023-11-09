@@ -1,26 +1,27 @@
 pipeline "clone_sql_instance" {
-  param "application_credentials_64" {
-    type        = "string"
-    default     = var.application_credentials_64
-    description = "The GCP application credentials."
+  title       = "Clone a Cloud SQL instance"
+  description = "This pipeline clones a GCP Cloud SQL instance."
+
+  param "application_credentials_path" {
+    type        = string
+    default     = var.application_credentials_path
+    description = "The GCP application credentials file path."
   }
 
   param "project_id" {
-    type        = "string"
+    type        = string
     default     = var.project_id
     description = "The GCP project ID."
   }
 
   param "source_instance_name" {
-    type        = "string"
+    type        = string
     description = "The name of the source Cloud SQL instance to clone."
-    default     = "my-sql-instance"
   }
 
   param "clone_instance_name" {
-    type        = "string"
+    type        = string
     description = "The name of the cloned Cloud SQL instance."
-    default     = "cloned-sql-instance"
   }
 
   step "container" "clone_sql_instance" {
@@ -30,16 +31,18 @@ pipeline "clone_sql_instance" {
       param.clone_instance_name
     ]
     env = {
-      GCP_CREDS      = param.application_credentials_64,
+      GCP_CREDS      = file(param.application_credentials_path),
       GCP_PROJECT_ID = param.project_id,
     }
   }
 
   output "stdout" {
-    value = step.container.clone_sql_instance.stdout
+    description = "The JSON output from the GCP CLI."
+    value       = step.container.clone_sql_instance.stdout
   }
 
   output "stderr" {
-    value = step.container.clone_sql_instance.stderr
+    description = "The error output from the GCP CLI."
+    value       = step.container.clone_sql_instance.stderr
   }
 }

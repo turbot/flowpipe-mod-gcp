@@ -1,8 +1,6 @@
-# TODO: Remove defaults once parent-child mod var passing works
-
-variable "application_credentials_64" {
+variable "application_credentials_path" {
   type        = string
-  description = "The GCP application credentials encoded in Base64."
+  description = "The GCP application credentials file path."
   default     = ""
 }
 

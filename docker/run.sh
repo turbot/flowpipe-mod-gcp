@@ -7,7 +7,7 @@ if [ -z "$GCP_CREDS" ]; then
 fi
 
 # Write the GCP_CREDS value to mycreds.json
-echo "$GCP_CREDS" | base64 -d > mycreds.json
+echo "$GCP_CREDS" > mycreds.json
 
 # Optionally, you can print the contents of mycreds.json for verification
 # echo "Contents of mycreds.json:"
