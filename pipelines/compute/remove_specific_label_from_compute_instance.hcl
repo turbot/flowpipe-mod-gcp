@@ -4,14 +4,14 @@ pipeline "remove_specific_label_from_compute_instance" {
 
   param "application_credentials_path" {
     type        = string
-    default     = var.application_credentials_path
     description = "The GCP application credentials file path."
+    default     = var.application_credentials_path
   }
 
   param "project_id" {
     type        = string
-    default     = var.project_id
     description = "The GCP project ID."
+    default     = var.project_id
   }
 
   param "zone" {

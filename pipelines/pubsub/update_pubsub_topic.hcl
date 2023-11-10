@@ -4,26 +4,26 @@ pipeline "update_pubsub_topics" {
 
   param "application_credentials_path" {
     type        = string
-    default     = var.application_credentials_path
     description = "The GCP application credentials file path."
+    default     = var.application_credentials_path
   }
 
   param "project_id" {
     type        = string
-    default     = var.project_id
     description = "The GCP project ID."
+    default     = var.project_id
   }
 
   param "remove_labels" {
     type        = "list(string)"
-    optional    = true
     description = "The GCP labels."
+    optional    = true
   }
 
   param "update_labels" {
     type        = "map(string)"
-    optional    = true
     description = "The GCP labels."
+    optional    = true
   }
 
   param "topic_name" {
@@ -33,8 +33,8 @@ pipeline "update_pubsub_topics" {
 
   param "message_retention_duration" {
     type        = string
-    optional    = true
     description = "The duration to retain messages."
+    optional    = true
   }
 
   step "container" "update_pubsub_topics" {

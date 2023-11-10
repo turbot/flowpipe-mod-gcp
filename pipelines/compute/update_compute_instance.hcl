@@ -4,14 +4,14 @@ pipeline "update_compute_instance" {
 
   param "application_credentials_path" {
     type        = string
-    default     = var.application_credentials_path
     description = "The GCP application credentials file path."
+    default     = var.application_credentials_path
   }
 
   param "project_id" {
     type        = string
-    default     = var.project_id
     description = "The GCP project ID."
+    default     = var.project_id
   }
 
   param "zone" {
@@ -21,14 +21,14 @@ pipeline "update_compute_instance" {
 
   param "update_labels" {
     type        = "map(string)"
-    optional    = true
     description = "The GCP labels."
+    optional    = true
   }
 
   param "remove_labels" {
     type        = "list(string)"
-    optional    = true
     description = "The GCP labels."
+    optional    = true
   }
 
   param "instance_name" {

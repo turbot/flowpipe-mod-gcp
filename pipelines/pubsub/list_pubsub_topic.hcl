@@ -4,14 +4,14 @@ pipeline "list_pubsub_topics" {
 
   param "application_credentials_path" {
     type        = string
-    default     = var.application_credentials_path
     description = "The GCP application credentials file path."
+    default     = var.application_credentials_path
   }
 
   param "project_id" {
     type        = string
-    default     = var.project_id
     description = "The GCP project ID."
+    default     = var.project_id
   }
 
   step "container" "list_pubsub_topics" {
