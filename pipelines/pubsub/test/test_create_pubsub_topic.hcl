@@ -1,4 +1,4 @@
-pipeline "manage_pubsub_topic" {
+pipeline "test_create_pubsub_topic" {
   title       = "Manage Pub/Sub topic"
   description = "Create and delete Pub/Sub topics in a GCP project."
 
@@ -57,11 +57,6 @@ pipeline "manage_pubsub_topic" {
   // output "create_pubsub_topic" {
   //   description = "Check for pipeline.create_pubsub_topics."
   //   value       = step.pipeline.create_pubsub_topic.stderr == "" ? "succeeded" : "failed: ${step.pipeline.create_pubsub_topic.stderr}"
-  // }
-
-  // output "update_pubsub_topic" {
-  //   description = "Check for pipeline.update_pubsub_topics."
-  //   value       = step.pipeline.update_pubsub_topic.stderr == "" ? "succeeded" : "failed: ${step.pipeline.update_pubsub_topic.stderr}"
   // }
 
   // output "delete_pubsub_topic" {
