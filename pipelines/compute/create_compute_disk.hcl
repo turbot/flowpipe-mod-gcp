@@ -4,13 +4,13 @@ pipeline "create_compute_disk" {
 
   param "application_credentials_path" {
     type        = string
-    description = "The GCP application credentials file path."
+    description = local.application_credentials_path_param_description
     default     = var.application_credentials_path
   }
 
   param "project_id" {
     type        = string
-    description = "The GCP project ID."
+    description = local.project_id_param_description
     default     = var.project_id
   }
 

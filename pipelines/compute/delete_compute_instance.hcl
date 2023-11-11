@@ -3,13 +3,15 @@ pipeline "delete_compute_instance" {
   description = "This pipeline will delete a GCP compute instance."
 
   param "application_credentials_path" {
-    type    = "string"
-    default = var.application_credentials_path
+    type        = string
+    description = local.application_credentials_path_param_description
+    default     = var.application_credentials_path
   }
 
   param "project_id" {
-    type    = "string"
-    default = var.project_id
+    type        = string
+    description = local.project_id_param_description
+    default     = var.project_id
   }
 
   param "zone" {
