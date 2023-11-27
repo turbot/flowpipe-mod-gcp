@@ -35,7 +35,7 @@ pipeline "get_compute_instance" {
 
   output "instance_details" {
     description = "Details about the GCP compute instance."
-    value       = step.container.get_compute_instance.stdout
+    value       = jsondecode(step.container.get_compute_instance.stdout)
   }
 
   output "stderr" {
