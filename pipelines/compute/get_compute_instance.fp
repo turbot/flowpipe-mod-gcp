@@ -17,11 +17,13 @@ pipeline "get_compute_instance" {
   param "zone" {
     type        = string
     description = "The GCP zone."
+    default     = "us-central1-a"
   }
 
   param "instance_name" {
     type        = string
     description = "The GCP instance name."
+    default     = "instance-1"
   }
 
   step "container" "get_compute_instance" {

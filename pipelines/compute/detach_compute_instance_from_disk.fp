@@ -14,7 +14,7 @@ pipeline "detach_compute_instance_from_disk" {
     default     = var.project_id
   }
 
-  param "intance_name" {
+  param "instance_name" {
     type        = string
     description = "The GCP instance name."
   }
@@ -31,7 +31,7 @@ pipeline "detach_compute_instance_from_disk" {
 
   step "container" "detach_compute_instance_from_disk" {
     image = "my-gcloud-image-latest"
-    cmd   = ["compute", "instances", "detach-disk", param.intance_name, "--disk", param.disk_name, "--zone", param.zone]
+    cmd   = ["compute", "instances", "detach-disk", param.instance_name, "--disk", param.disk_name, "--zone", param.zone]
     env = {
       GCP_CREDS : file(param.application_credentials_path),
       GCP_PROJECT_ID : param.project_id,
