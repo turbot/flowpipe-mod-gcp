@@ -32,9 +32,4 @@ pipeline "delete_vpc_network" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.delete_vpc_network.stdout
   }
-
-  output "stderr" {
-    description = "The error output from the GCP CLI."
-    value       = step.container.delete_vpc_network.stderr
-  }
 }

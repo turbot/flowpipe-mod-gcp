@@ -45,9 +45,4 @@ pipeline "add_labels_to_compute_disk" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.add_labels_to_compute_disk.stdout
   }
-
-  output "stderr" {
-    description = "The error output from the GCP CLI."
-    value       = step.container.add_labels_to_compute_disk.stderr
-  }
 }

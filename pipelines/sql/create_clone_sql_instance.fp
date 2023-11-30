@@ -40,9 +40,4 @@ pipeline "clone_sql_instance" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.clone_sql_instance.stdout
   }
-
-  output "stderr" {
-    description = "The error output from the GCP CLI."
-    value       = step.container.clone_sql_instance.stderr
-  }
 }

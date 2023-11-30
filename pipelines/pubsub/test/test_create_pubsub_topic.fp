@@ -29,8 +29,6 @@ pipeline "test_create_pubsub_topic" {
   }
 
   step "pipeline" "delete_pubsub_topic" {
-    // since my stderr was never null so commented this
-    // if         = step.pipeline.create_pubsub_topic.stderr == ""
     depends_on = [step.pipeline.create_pubsub_topic]
     pipeline   = pipeline.delete_pubsub_topics
     args = {
@@ -53,14 +51,4 @@ pipeline "test_create_pubsub_topic" {
   output "delete_pubsub_topic" {
     value = startswith(step.pipeline.delete_pubsub_topic.stderr, "ERROR:") ? "failed: ${step.pipeline.delete_pubsub_topic.stderr}" : "passed"
   }
-
-  // output "create_pubsub_topic" {
-  //   description = "Check for pipeline.create_pubsub_topics."
-  //   value       = step.pipeline.create_pubsub_topic.stderr == "" ? "succeeded" : "failed: ${step.pipeline.create_pubsub_topic.stderr}"
-  // }
-
-  // output "delete_pubsub_topic" {
-  //   description = "Check for pipeline.delete_pubsub_topics."
-  //   value       = step.pipeline.delete_pubsub_topic.stderr == "" ? "succeeded" : "failed: ${step.pipeline.delete_pubsub_topic.stderr}"
-  // }
 }

@@ -32,8 +32,4 @@ pipeline "delete_pubsub_subscriptions" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.delete_pubsub_subscriptions.stdout
   }
-  output "stderr" {
-    description = "The error output from the GCP CLI."
-    value       = step.container.delete_pubsub_subscriptions.stderr
-  }
 }

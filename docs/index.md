@@ -11,7 +11,6 @@ A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
 ## Documentation
 
 - **[Pipelines →](https://hub.flowpipe.io/mods/turbot/gcp/pipelines)**
-- **[Triggers →](https://hub.flowpipe.io/mods/turbot/gcp/triggers)**
 
 ## Getting started
 
@@ -42,7 +41,7 @@ vi flowpipe.fpvars
 
 It's recommended to configure credentials through [input variables](https://flowpipe.io/docs/using-flowpipe/mod-variables) by setting them in the `flowpipe.fpvars` file.
 
-**Note:** Credentials can also be passed in each pipeline run with `--pipeline-arg project_id=YourProjectID --pipeline-arg application_credentials_path=YourApplicationCredentialsFilePath`.
+**Note:** Credentials can also be passed in each pipeline run with `--arg project_id=YourProjectID --arg application_credentials_path=YourApplicationCredentialsFilePath`.
 
 
 Additional input variables may be defined in the mod's `variables.fp` file that can be configured to better match your environment and requirements.
@@ -54,7 +53,7 @@ Variables with defaults set do not need to be explicitly set, but it may be help
 Start the Flowpipe server to get started:
 
 ```sh
-flowpipe service start
+flowpipe server
 ```
 
 Run a pipeline:
@@ -68,10 +67,10 @@ flowpipe pipeline run list_pubsub_topics
 To pass values into pipeline [parameters](https://flowpipe.io/docs/using-flowpipe/pipeline-parameters), use the following syntax:
 
 ```sh
-flowpipe pipeline run create_compute_instance --pipeline-arg intance_name="i-1234567890abcdef0" --pipeline-arg machine_type="n1-standard-1" --pipeline-arg zone="us-central1-a" --pipeline-arg boot_disk_size="10"
+flowpipe pipeline run create_compute_instance --arg intance_name="i-1234567890abcdef0" --arg machine_type="n1-standard-1" --arg zone="us-central1-a" --arg boot_disk_size="10"
 ```
 
-Multiple pipeline args can be passed in with separate `--pipeline-arg` flags.
+Multiple pipeline args can be passed in with separate `--arg` flags.
 
 For more information on passing arguments, please see [Pipeline Args](https://flowpipe.io/docs/using-flowpipe/pipeline-arguments).
 

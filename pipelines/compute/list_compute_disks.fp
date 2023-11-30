@@ -27,9 +27,4 @@ pipeline "list_compute_disks" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.list_compute_disks.stdout
   }
-
-  output "stderr" {
-    description = "The error output from the GCP CLI."
-    value       = step.container.list_compute_disks.stderr
-  }
 }

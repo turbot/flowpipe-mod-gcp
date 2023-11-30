@@ -52,9 +52,4 @@ pipeline "update_compute_instance" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.update_compute_instance.stdout
   }
-
-  output "stderr" {
-    description = "The error output from the GCP CLI."
-    value       = step.container.update_compute_instance.stderr
-  }
 }
