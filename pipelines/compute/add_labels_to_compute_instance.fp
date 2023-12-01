@@ -19,20 +19,20 @@ pipeline "add_labels_to_compute_instance" {
     description = "The GCP zone."
   }
 
-  param "intance_name" {
+  param "instance_name" {
     type        = string
     description = "The GCP instance name."
   }
 
   param "labels" {
-    type        = "map(string)"
+    type        = map(string)
     description = "The GCP labels."
   }
 
   step "container" "add_labels_to_compute_instance" {
     image = "my-gcloud-image-latest"
     cmd = concat(
-      ["compute", "instances", "add-labels", param.intance_name, "--zone", param.zone, "--labels"],
+      ["compute", "instances", "add-labels", param.instance_name, "--zone", param.zone, "--labels"],
       [join(",", [for key, value in param.labels : "${key}=${value}"])]
     )
     env = {
@@ -43,6 +43,6 @@ pipeline "add_labels_to_compute_instance" {
 
   output "instance" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.add_labels_to_compute_instance.stdout
+    value       = jsondecode(step.container.add_labels_to_compute_instance.stdout)
   }
 }

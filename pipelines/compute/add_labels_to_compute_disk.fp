@@ -25,7 +25,7 @@ pipeline "add_labels_to_compute_disk" {
   }
 
   param "labels" {
-    type        = "map(string)"
+    type        = map(string)
     description = "The GCP labels."
   }
 
@@ -43,6 +43,6 @@ pipeline "add_labels_to_compute_disk" {
 
   output "disk" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.add_labels_to_compute_disk.stdout
+    value       = jsondecode(step.container.add_labels_to_compute_disk.stdout)
   }
 }

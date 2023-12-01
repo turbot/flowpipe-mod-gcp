@@ -14,7 +14,7 @@ pipeline "attach_compute_instance_to_disk" {
     default     = var.project_id
   }
 
-  param "intance_name" {
+  param "instance_name" {
     type        = string
     description = "The GCP instance name."
   }
@@ -31,15 +31,15 @@ pipeline "attach_compute_instance_to_disk" {
 
   step "container" "attach_compute_instance_to_disk" {
     image = "my-gcloud-image-latest"
-    cmd   = ["compute", "instances", "attach-disk", param.intance_name, "--disk", param.disk_name, "--zone", param.zone]
+    cmd   = ["compute", "instances", "attach-disk", param.instance_name, "--disk", param.disk_name, "--zone", param.zone]
     env = {
       GCP_CREDS : file(param.application_credentials_path),
       GCP_PROJECT_ID : param.project_id,
     }
   }
 
-  output "stdout" {
+  output "instance" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.attach_compute_instance_to_disk.stdout
+    value       = jsondecode(step.container.attach_compute_instance_to_disk.stdout)
   }
 }

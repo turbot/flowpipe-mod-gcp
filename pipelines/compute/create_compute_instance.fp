@@ -24,7 +24,7 @@ pipeline "create_compute_instance" {
     description = "The GCP machine type."
   }
 
-  param "intance_name" {
+  param "instance_name" {
     type        = string
     description = "The GCP instance name."
   }
@@ -36,7 +36,7 @@ pipeline "create_compute_instance" {
 
   step "container" "create_compute_instance" {
     image = "my-gcloud-image-latest"
-    cmd   = ["compute", "instances", "create", param.intance_name, "--zone", param.zone, "--machine-type", param.machine_type, "--boot-disk-size", param.boot_disk_size]
+    cmd   = ["compute", "instances", "create", param.instance_name, "--zone", param.zone, "--machine-type", param.machine_type, "--boot-disk-size", param.boot_disk_size]
     env = {
       GCP_CREDS : file(param.application_credentials_path),
       GCP_PROJECT_ID : param.project_id,
@@ -45,6 +45,6 @@ pipeline "create_compute_instance" {
 
   output "instance" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.create_compute_instance.stdout
+    value       = jsondecode(step.container.create_compute_instance.stdout)
   }
 }

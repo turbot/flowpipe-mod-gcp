@@ -20,13 +20,13 @@ pipeline "update_compute_instance" {
   }
 
   param "update_labels" {
-    type        = "map(string)"
+    type        = map(string)
     description = "The GCP labels."
     optional    = true
   }
 
   param "remove_labels" {
-    type        = "list(string)"
+    type        = list(string)
     description = "The GCP labels."
     optional    = true
   }
@@ -48,8 +48,8 @@ pipeline "update_compute_instance" {
     }
   }
 
-  output "stdout" {
+  output "instance" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.update_compute_instance.stdout
+    value       = jsondecode(step.container.update_compute_instance.stdout)
   }
 }

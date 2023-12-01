@@ -25,7 +25,7 @@ pipeline "remove_specific_label_from_compute_disk" {
   }
 
   param "label_keys" {
-    type        = "list(string)"
+    type        = list(string)
     description = "The GCP labels."
   }
 
@@ -40,6 +40,6 @@ pipeline "remove_specific_label_from_compute_disk" {
 
   output "disk" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.remove_specific_label_from_compute_disk.stdout
+    value       = jsondecode(step.container.remove_specific_label_from_compute_disk.stdout)
   }
 }

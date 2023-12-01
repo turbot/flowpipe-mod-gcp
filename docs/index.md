@@ -67,7 +67,7 @@ flowpipe pipeline run list_pubsub_topics
 To pass values into pipeline [parameters](https://flowpipe.io/docs/using-flowpipe/pipeline-parameters), use the following syntax:
 
 ```sh
-flowpipe pipeline run create_compute_instance --arg intance_name="i-1234567890abcdef0" --arg machine_type="n1-standard-1" --arg zone="us-central1-a" --arg boot_disk_size="10"
+flowpipe pipeline run create_compute_instance --arg instance_name="i-1234567890abcdef0" --arg machine_type="n1-standard-1" --arg zone="us-central1-a" --arg boot_disk_size="10"
 ```
 
 Multiple pipeline args can be passed in with separate `--arg` flags.

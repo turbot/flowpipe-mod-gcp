@@ -19,14 +19,14 @@ pipeline "delete_compute_instance" {
     description = "The GCP zone."
   }
 
-  param "intance_name" {
+  param "instance_name" {
     type        = string
     description = "The GCP instance name."
   }
 
   step "container" "delete_compute_instance" {
     image = "my-gcloud-image-latest"
-    cmd   = ["compute", "instances", "delete", param.intance_name, "--zone", param.zone]
+    cmd   = ["compute", "instances", "delete", param.instance_name, "--zone", param.zone]
     env = {
       GCP_CREDS : file(param.application_credentials_path),
       GCP_PROJECT_ID : param.project_id,

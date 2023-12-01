@@ -42,6 +42,6 @@ pipeline "create_compute_disk" {
 
   output "disk" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.create_compute_disk.stdout
+    value       = jsondecode(step.container.create_compute_disk.stdout)
   }
 }
