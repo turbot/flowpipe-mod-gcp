@@ -1,4 +1,4 @@
-pipeline "update_pubsub_subscriptions" {
+pipeline "update_pubsub_subscription" {
   title       = "Update GCP Pub/Sub Subscriptions"
   description = "This pipeline updates the labels on a GCP Pub/Sub subscription."
 
@@ -20,18 +20,18 @@ pipeline "update_pubsub_subscriptions" {
   }
 
   param "update_labels" {
-    type        = "map(string)"
+    type        = map(string)
     description = "The GCP labels to update or add to the subscription."
     optional    = true
   }
 
   param "remove_labels" {
-    type        = "list(string)"
+    type        = list(string)
     description = "The names of labels to remove from the subscription."
     optional    = true
   }
 
-  step "container" "update_pubsub_subscriptions" {
+  step "container" "update_pubsub_subscription" {
     image = "my-gcloud-image-latest"
     cmd = concat(["pubsub", "subscriptions", "update", param.subscription_name],
       param.remove_labels != null ? ["--remove-labels", join(",", param.remove_labels)] : [],
@@ -43,8 +43,8 @@ pipeline "update_pubsub_subscriptions" {
     }
   }
 
-  output "stdout" {
+  output "subscription" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.update_pubsub_subscriptions.stdout
+    value       = jsondecode(step.container.update_pubsub_subscription.stdout)
   }
 }

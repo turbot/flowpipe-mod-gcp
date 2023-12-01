@@ -36,8 +36,8 @@ pipeline "clone_sql_instance" {
     }
   }
 
-  output "stdout" {
+  output "clone_sql_instance" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.clone_sql_instance.stdout
+    value       = jsondecode(step.container.clone_sql_instance.stdout)
   }
 }

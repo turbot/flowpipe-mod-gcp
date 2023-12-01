@@ -15,7 +15,7 @@ pipeline "create_pubsub_subscriptions" {
   }
 
   param "subscription_names" {
-    type        = "list(string)"
+    type        = list(string)
     description = "The names of the subscriptions to create."
   }
 
@@ -33,8 +33,8 @@ pipeline "create_pubsub_subscriptions" {
     }
   }
 
-  output "stdout" {
+  output "subscriptions" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.create_pubsub_subscriptions.stdout
+    value       = jsondecode(step.container.create_pubsub_subscriptions.stdout)
   }
 }

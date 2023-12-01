@@ -23,8 +23,8 @@ pipeline "list_storage_buckets" {
     }
   }
 
-  output "stdout" {
+  output "buckets" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.list_storage_buckets.stdout
+    value       = jsondecode(step.container.list_storage_buckets.stdout)
   }
 }

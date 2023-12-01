@@ -1,4 +1,4 @@
-pipeline "update_pubsub_topics" {
+pipeline "update_pubsub_topic" {
   title       = "Update GCP Pub/Sub Topics"
   description = "This pipeline updates GCP Pub/Sub Topics."
 
@@ -37,7 +37,7 @@ pipeline "update_pubsub_topics" {
     optional    = true
   }
 
-  step "container" "update_pubsub_topics" {
+  step "container" "update_pubsub_topic" {
     image = "my-gcloud-image-latest"
     cmd = concat(["pubsub", "topics", "update", param.topic_name],
       param.message_retention_duration != null ? ["--message-retention-duration", param.message_retention_duration] : [],
@@ -50,8 +50,8 @@ pipeline "update_pubsub_topics" {
     }
   }
 
-  output "stdout" {
+  output "topic" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.update_pubsub_topics.stdout
+    value       = jsondecode(step.container.update_pubsub_topic.stdout)
   }
 }

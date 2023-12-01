@@ -27,9 +27,4 @@ pipeline "delete_pubsub_subscriptions" {
       GCP_PROJECT_ID : param.project_id,
     }
   }
-
-  output "stdout" {
-    description = "The JSON output from the GCP CLI."
-    value       = step.container.delete_pubsub_subscriptions.stdout
-  }
 }

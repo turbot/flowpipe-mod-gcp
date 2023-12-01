@@ -15,13 +15,13 @@ pipeline "create_pubsub_topics" {
   }
 
   param "labels" {
-    type        = "map(string)"
+    type        = map(string)
     description = "The GCP labels."
     optional    = true
   }
 
   param "topic_names" {
-    type        = "list(string)"
+    type        = list(string)
     description = "The names of the topics to create."
   }
 
@@ -37,7 +37,7 @@ pipeline "create_pubsub_topics" {
     }
   }
 
-  output "stdout" {
+  output "topics" {
     description = "The JSON output from the GCP CLI."
     value       = jsondecode(step.container.create_pubsub_topics.stdout)
   }

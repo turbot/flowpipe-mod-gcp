@@ -15,7 +15,7 @@ pipeline "create_storage_buckets" {
   }
 
   param "bucket_urls" {
-    type        = "list(string)"
+    type        = list(string)
     description = "The GCP bucket URLs."
   }
 
@@ -30,6 +30,6 @@ pipeline "create_storage_buckets" {
 
   output "stdout" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.create_storage_buckets.stdout
+    value       = jsondecode(step.container.create_storage_buckets.stdout)
   }
 }

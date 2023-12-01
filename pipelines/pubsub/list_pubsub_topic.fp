@@ -23,8 +23,8 @@ pipeline "list_pubsub_topics" {
     }
   }
 
-  output "stdout" {
+  output "topics" {
     description = "The JSON output from the GCP CLI."
-    value       = step.container.list_pubsub_topics.stdout
+    value       = jsondecode(step.container.list_pubsub_topics.stdout)
   }
 }
