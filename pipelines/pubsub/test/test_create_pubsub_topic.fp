@@ -39,19 +39,10 @@ pipeline "test_create_pubsub_topic" {
   }
 
 output "create_pubsub_topic" {
-  value = step.pipeline.create_pubsub_topic
+  value = !is_error(step.pipeline.create_pubsub_topic) ? "failed" : "succeeded"
 }
 
 output "delete_pubsub_topic" {
-  value = step.pipeline.delete_pubsub_topic
+  value = !is_error(step.pipeline.delete_pubsub_topic) ? "failed" : "succeeded"
 }
-
-  // output "create_pubsub_topic" {
-  //   description = "Check for pipeline.create_pubsub_topics."
-  //   value       = startswith(step.pipeline.create_pubsub_topic.stderr, "ERROR:") ? "failed: ${step.pipeline.create_pubsub_topic.stderr}" : "succeeded"
-  // }
-
-  // output "delete_pubsub_topic" {
-  //   value = startswith(step.pipeline.delete_pubsub_topic.stderr, "ERROR:") ? "failed: ${step.pipeline.delete_pubsub_topic.stderr}" : "passed"
-  // }
 }
