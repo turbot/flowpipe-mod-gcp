@@ -15,7 +15,7 @@ pipeline "test_create_pubsub_topic" {
   }
 
   param "topic_name" {
-    type        = "list(string))"
+    type        = list(string)
     description = "The name of the Pub/Sub topic."
   }
 
@@ -38,17 +38,20 @@ pipeline "test_create_pubsub_topic" {
     }
   }
 
-  output "topic_name" {
-    description = "Pub/Sub topic name used in the test."
-    value       = param.topic_name
-  }
+output "create_pubsub_topic" {
+  value = step.pipeline.create_pubsub_topic
+}
 
-  output "create_pubsub_topic" {
-    description = "Check for pipeline.create_pubsub_topics."
-    value       = startswith(step.pipeline.create_pubsub_topic.stderr, "ERROR:") ? "failed: ${step.pipeline.create_pubsub_topic.stderr}" : "succeeded"
-  }
+output "delete_pubsub_topic" {
+  value = step.pipeline.delete_pubsub_topic
+}
 
-  output "delete_pubsub_topic" {
-    value = startswith(step.pipeline.delete_pubsub_topic.stderr, "ERROR:") ? "failed: ${step.pipeline.delete_pubsub_topic.stderr}" : "passed"
-  }
+  // output "create_pubsub_topic" {
+  //   description = "Check for pipeline.create_pubsub_topics."
+  //   value       = startswith(step.pipeline.create_pubsub_topic.stderr, "ERROR:") ? "failed: ${step.pipeline.create_pubsub_topic.stderr}" : "succeeded"
+  // }
+
+  // output "delete_pubsub_topic" {
+  //   value = startswith(step.pipeline.delete_pubsub_topic.stderr, "ERROR:") ? "failed: ${step.pipeline.delete_pubsub_topic.stderr}" : "passed"
+  // }
 }

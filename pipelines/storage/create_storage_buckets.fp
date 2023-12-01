@@ -27,9 +27,4 @@ pipeline "create_storage_buckets" {
       GCP_PROJECT_ID : param.project_id,
     }
   }
-
-  output "stdout" {
-    description = "The JSON output from the GCP CLI."
-    value       = jsondecode(step.container.create_storage_buckets.stdout)
-  }
 }

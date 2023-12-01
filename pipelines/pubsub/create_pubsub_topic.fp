@@ -36,9 +36,4 @@ pipeline "create_pubsub_topics" {
       GCP_PROJECT_ID : param.project_id,
     }
   }
-
-  output "topics" {
-    description = "The JSON output from the GCP CLI."
-    value       = jsondecode(step.container.create_pubsub_topics.stdout)
-  }
 }
