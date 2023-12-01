@@ -72,7 +72,7 @@ flowpipe pipeline run create_compute_instance --arg instance_name="i-1234567890a
 
 Multiple pipeline args can be passed in with separate `--arg` flags.
 
-For more information on passing arguments, please see [Pipeline Args](https://flowpipe.io/docs/using-flowpipe/pipeline-arguments).
+For more information on passing arguments, please see [Pipeline Args](https://flowpipe.io/docs/run/pipelines).
 
 ## Contributing
 
