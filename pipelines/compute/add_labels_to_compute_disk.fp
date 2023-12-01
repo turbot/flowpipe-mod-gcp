@@ -41,7 +41,7 @@ pipeline "add_labels_to_compute_disk" {
     }
   }
 
-  output "stdout" {
+  output "disk" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.add_labels_to_compute_disk.stdout
   }

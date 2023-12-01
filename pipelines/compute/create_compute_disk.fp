@@ -27,18 +27,20 @@ pipeline "create_compute_disk" {
   param "size" {
     type        = string
     description = "The GCP zone."
+    optional    = true
   }
 
   step "container" "create_compute_disk" {
     image = "my-gcloud-image-latest"
-    cmd   = ["compute", "disks", "create", param.disk_name, "--zone", param.zone, "--size", param.size]
+    cmd   = concat(["compute", "disks", "create", param.disk_name, "--zone", param.zone], 
+    param.size != null? ["--size", param.size]:[])
     env = {
       GCP_CREDS : file(param.application_credentials_path),
       GCP_PROJECT_ID : param.project_id,
     }
   }
 
-  output "stdout" {
+  output "disk" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.create_compute_disk.stdout
   }

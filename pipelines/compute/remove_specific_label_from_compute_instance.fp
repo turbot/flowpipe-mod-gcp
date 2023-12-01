@@ -38,7 +38,7 @@ pipeline "remove_specific_label_from_compute_instance" {
     }
   }
 
-  output "stdout" {
+  output "instance" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.remove_specific_label_from_compute_instance.stdout
   }

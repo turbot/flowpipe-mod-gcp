@@ -33,7 +33,7 @@ pipeline "remove_all_labels_from_compute_disk" {
     }
   }
 
-  output "stdout" {
+  output "disk" {
     description = "The JSON output from the GCP CLI."
     value       = step.container.remove_all_labels_from_compute_disk.stdout
   }
