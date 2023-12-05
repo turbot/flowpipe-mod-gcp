@@ -39,7 +39,7 @@ pipeline "create_compute_snapshot" {
   }
 
   output "snapshot" {
-    description = "Details about the GCP Compute Engine snapshot."
+    description = "Information about the GCP Compute Engine snapshot."
     value       = jsondecode(step.container.create_compute_snapshot.stdout)
   }
 }

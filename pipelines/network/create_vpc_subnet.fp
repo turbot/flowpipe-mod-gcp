@@ -49,7 +49,7 @@ pipeline "create_vpc_subnet" {
   }
 
   output "subnet" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the created subnet."
     value       = jsondecode(step.container.create_vpc_subnet.stdout)
   }
 }

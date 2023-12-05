@@ -39,7 +39,7 @@ pipeline "create_vpc_network" {
   }
 
   output "network" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the created VPC network."
     value       = jsondecode(step.container.create_vpc_network.stdout)
   }
 }

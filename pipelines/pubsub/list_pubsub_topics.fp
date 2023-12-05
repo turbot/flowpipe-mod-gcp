@@ -24,7 +24,7 @@ pipeline "list_pubsub_topics" {
   }
 
   output "topics" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the Pub/Sub topics in the project."
     value       = jsondecode(step.container.list_pubsub_topics.stdout)
   }
 }

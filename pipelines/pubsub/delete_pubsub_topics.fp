@@ -15,7 +15,7 @@ pipeline "delete_pubsub_topics" {
   }
 
   param "topic_names" {
-    type        = "list(string)"
+    type        = list(string)
     description = "The names of the topics to delete."
   }
 

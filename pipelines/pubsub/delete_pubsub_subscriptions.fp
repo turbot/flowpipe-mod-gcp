@@ -15,7 +15,7 @@ pipeline "delete_pubsub_subscriptions" {
   }
 
   param "subscription_names" {
-    type        = "list(string)"
+    type        = list(string)
     description = "The names of the subscriptions to delete."
   }
 

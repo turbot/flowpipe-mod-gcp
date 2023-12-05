@@ -37,7 +37,7 @@ pipeline "clone_sql_instance" {
   }
 
   output "clone_sql_instance" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the cloned Cloud SQL instance."
     value       = jsondecode(step.container.clone_sql_instance.stdout)
   }
 }

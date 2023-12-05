@@ -44,7 +44,7 @@ pipeline "update_pubsub_subscription" {
   }
 
   output "subscription" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the updated subscription."
     value       = jsondecode(step.container.update_pubsub_subscription.stdout)
   }
 }

@@ -42,7 +42,7 @@ pipeline "add_labels_to_compute_instance" {
   }
 
   output "instance" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the GCP compute instance."
     value       = jsondecode(step.container.add_labels_to_compute_instance.stdout)
   }
 }

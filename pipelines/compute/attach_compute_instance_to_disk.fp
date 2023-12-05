@@ -39,7 +39,7 @@ pipeline "attach_compute_instance_to_disk" {
   }
 
   output "instance" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the GCP instance."
     value       = jsondecode(step.container.attach_compute_instance_to_disk.stdout)
   }
 }

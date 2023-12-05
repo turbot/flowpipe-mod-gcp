@@ -78,7 +78,7 @@ pipeline "create_vpc_firewall_rule" {
   }
 
   output "firewall_rule" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the created firewall rule."
     value       = jsondecode(step.container.create_vpc_firewall_rule.stdout)
   }
 }

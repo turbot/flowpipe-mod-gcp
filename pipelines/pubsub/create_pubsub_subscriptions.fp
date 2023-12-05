@@ -34,7 +34,7 @@ pipeline "create_pubsub_subscriptions" {
   }
 
   output "subscriptions" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the created subscriptions."
     value       = jsondecode(step.container.create_pubsub_subscriptions.stdout)
   }
 }

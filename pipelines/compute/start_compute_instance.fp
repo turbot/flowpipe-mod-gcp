@@ -34,7 +34,7 @@ pipeline "start_compute_instance" {
   }
 
   output "instance" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the started compute instance."
     value       = jsondecode(step.container.start_compute_instance.stdout)
   }
 }

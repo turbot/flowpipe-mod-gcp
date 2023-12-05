@@ -49,7 +49,7 @@ pipeline "update_compute_disk" {
   }
 
   output "disk" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the updated GCP disk."
     value       = jsondecode(step.container.update_compute_disk.stdout)
   }
 }

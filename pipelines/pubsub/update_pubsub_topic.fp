@@ -15,13 +15,13 @@ pipeline "update_pubsub_topic" {
   }
 
   param "remove_labels" {
-    type        = "list(string)"
+    type        = list(string)
     description = "The GCP labels."
     optional    = true
   }
 
   param "update_labels" {
-    type        = "map(string)"
+    type        = map(string)
     description = "The GCP labels."
     optional    = true
   }
@@ -51,7 +51,7 @@ pipeline "update_pubsub_topic" {
   }
 
   output "topic" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the updated topic."
     value       = jsondecode(step.container.update_pubsub_topic.stdout)
   }
 }

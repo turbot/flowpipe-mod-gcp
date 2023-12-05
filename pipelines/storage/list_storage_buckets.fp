@@ -24,7 +24,7 @@ pipeline "list_storage_buckets" {
   }
 
   output "buckets" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the GCP Storage buckets in the project."
     value       = jsondecode(step.container.list_storage_buckets.stdout)
   }
 }

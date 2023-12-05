@@ -43,7 +43,7 @@ pipeline "create_sql_instance" {
   }
 
   output "sql_instance" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the created Cloud SQL instance."
     value       = jsondecode(step.container.create_sql_instance.stdout)
   }
 }
