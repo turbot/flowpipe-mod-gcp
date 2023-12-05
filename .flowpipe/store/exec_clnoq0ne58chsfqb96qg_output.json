@@ -1,0 +1,64 @@
+{
+  "args": null,
+  "container.list_pubsub_topics": [
+    {
+      "status": "finished",
+      "data": {
+        "container_id": "<redacted>bad2ec4da6431e4f27bf4fca",
+        "exit_code": 0,
+        "lines": [
+          {
+            "line": "[\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "  {\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "    \"name\": \"projects/cody-179817/topics/testing\"\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "  },\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "  {\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "    \"name\": \"projects/cody-179817/topics/testtopic123\"\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "  },\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "  {\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "    \"name\": \"projects/cody-179817/topics/testtopic1234\"\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "  }\n",
+            "stream": "stdout"
+          },
+          {
+            "line": "]\n",
+            "stream": "stdout"
+          }
+        ],
+        "stderr": "",
+        "stdout": "[\n  {\n    \"name\": \"projects/cody-179817/topics/testing\"\n  },\n  {\n    \"name\": \"projects/cody-179817/topics/testtopic123\"\n  },\n  {\n    \"name\": \"projects/cody-179817/topics/testtopic1234\"\n  }\n]\n"
+      }
+    }
+  ],
+  "output": {
+    "stderr": "",
+    "stdout": "[\n  {\n    \"name\": \"projects/cody-179817/topics/testing\"\n  },\n  {\n    \"name\": \"projects/cody-179817/topics/testtopic123\"\n  },\n  {\n    \"name\": \"projects/cody-179817/topics/testtopic1234\"\n  }\n]\n"
+  }
+}

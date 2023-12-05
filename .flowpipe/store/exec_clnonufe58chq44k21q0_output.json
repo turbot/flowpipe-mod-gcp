@@ -1,0 +1,20 @@
+{
+  "args": null,
+  "output": {
+    "errors": [
+      {
+        "pipeline_execution_id": "pexec_clnonufe58chq44k21qg",
+        "step_execution_id": "",
+        "pipeline": "gcp.pipeline.list_pubsub_topics",
+        "step": "list_pubsub_topics",
+        "error": {
+          "instance": "fperr_clnonufe58chq44k21rg",
+          "type": "error_internal",
+          "title": "Internal Error",
+          "status": 500,
+          "detail": "list_pubsub_topics: Invalid function argument: Invalid value for \"path\" parameter: failed to read file: read .: is a directory.\n(/Users/cbruno/flowpipe/gcp/pipelines/pubsub/list_pubsub_topic.fp:21,24-58)"
+        }
+      }
+    ]
+  }
+}

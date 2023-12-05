@@ -15,10 +15,11 @@ pipeline "list_storage_buckets" {
   }
 
   step "container" "list_storage_buckets" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["storage", "buckets", "list"]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["storage", "buckets", "list", "--format=json"]
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
+      CLOUDSDK_AUTH_ACCESS_TOKEN: "..."
+      #GCP_CREDS : file(param.application_credentials_path),
       GCP_PROJECT_ID : param.project_id,
     }
   }

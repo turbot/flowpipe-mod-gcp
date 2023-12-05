@@ -1,0 +1,44 @@
+{
+  "args": null,
+  "container.list_pubsub_topics": [
+    {
+      "status": "failed",
+      "data": {
+        "container_id": "",
+        "exit_code": -1
+      },
+      "errors": [
+        {
+          "pipeline_execution_id": "pexec_clnop0fe58chrb5r3ngg",
+          "step_execution_id": "sexec_clnop0fe58chrb5r3nhg",
+          "pipeline": "gcp.pipeline.list_pubsub_topics",
+          "step": "container.list_pubsub_topics",
+          "error": {
+            "instance": "fperr_clnop0ne58chrb5r3ni0",
+            "type": "error_internal",
+            "title": "Internal Error",
+            "status": 500,
+            "detail": "Error pulling image: Error response from daemon: pull access denied for my-gcloud-image-latest, repository does not exist or may require 'docker login': denied: requested access to the resource is denied"
+          }
+        }
+      ]
+    }
+  ],
+  "output": {
+    "errors": [
+      {
+        "pipeline_execution_id": "pexec_clnop0fe58chrb5r3ngg",
+        "step_execution_id": "sexec_clnop0fe58chrb5r3nhg",
+        "pipeline": "gcp.pipeline.list_pubsub_topics",
+        "step": "container.list_pubsub_topics",
+        "error": {
+          "instance": "fperr_clnop0ne58chrb5r3ni0",
+          "type": "error_internal",
+          "title": "Internal Error",
+          "status": 500,
+          "detail": "Error pulling image: Error response from daemon: pull access denied for my-gcloud-image-latest, repository does not exist or may require 'docker login': denied: requested access to the resource is denied"
+        }
+      }
+    ]
+  }
+}

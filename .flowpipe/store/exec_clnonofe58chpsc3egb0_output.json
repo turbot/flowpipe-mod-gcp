@@ -1,0 +1,49 @@
+{
+  "args": null,
+  "container.list_storage_buckets": [
+    {
+      "status": "failed",
+      "data": {
+        "container_id": "8af2067ea1a12af914f260e970117f1a4967f17a2db835ad846ca70f336a548d",
+        "exit_code": -1,
+        "lines": null,
+        "stderr": "",
+        "stdout": ""
+      },
+      "errors": [
+        {
+          "pipeline_execution_id": "pexec_clnonofe58chpsc3egbg",
+          "step_execution_id": "sexec_clnonofe58chpsc3egcg",
+          "pipeline": "gcp.pipeline.list_storage_buckets",
+          "step": "container.list_storage_buckets",
+          "error": {
+            "instance": "fperr_clnonone58chpsc3egd0",
+            "type": "error_internal",
+            "title": "Internal Error",
+            "status": 500,
+            "detail": "Error starting container: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: \"storage\": executable file not found in $PATH: unknown"
+          }
+        }
+      ]
+    }
+  ],
+  "output": {
+    "errors": [
+      {
+        "pipeline_execution_id": "pexec_clnonofe58chpsc3egbg",
+        "step_execution_id": "sexec_clnonofe58chpsc3egcg",
+        "pipeline": "gcp.pipeline.list_storage_buckets",
+        "step": "container.list_storage_buckets",
+        "error": {
+          "instance": "fperr_clnonone58chpsc3egd0",
+          "type": "error_internal",
+          "title": "Internal Error",
+          "status": 500,
+          "detail": "Error starting container: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: \"storage\": executable file not found in $PATH: unknown"
+        }
+      }
+    ],
+    "stderr": "",
+    "stdout": ""
+  }
+}
