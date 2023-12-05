@@ -24,7 +24,7 @@ pipeline "list_compute_disks" {
   }
 
   output "disks" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the created disks."
     value       = jsondecode(step.container.list_compute_disks.stdout)
   }
 }

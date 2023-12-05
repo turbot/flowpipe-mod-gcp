@@ -39,7 +39,7 @@ pipeline "detach_compute_instance_from_disk" {
   }
 
   output "instance" {
-    description = "The JSON output from the GCP CLI."
+    description = "Information about the instance."
     value       = jsondecode(step.container.detach_compute_instance_from_disk.stdout)
   }
 }
