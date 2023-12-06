@@ -24,11 +24,6 @@ pipeline "create_vpc_network" {
     description = "The name of the VPC network."
   }
 
-  param "region" {
-    type        = string
-    description = "The GCP region for the network and subnet."
-  }
-
   step "container" "create_vpc_network" {
     image = "my-gcloud-image-latest"
     cmd   = ["compute", "networks", "create", param.network_name, "--subnet-mode", param.subnet_mode]
