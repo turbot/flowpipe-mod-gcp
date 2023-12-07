@@ -2,6 +2,10 @@ pipeline "test_create_pubsub_topic" {
   title       = "Manage Pub/Sub topic"
   description = "Create and delete Pub/Sub topics in a GCP project."
 
+  tags = {
+    type = "test"
+  }
+
   param "cred" {
     type        = string
     description = local.creds_param_description
