@@ -2,10 +2,10 @@ pipeline "delete_vpc_subnet" {
   title       = "Delete a VPC subnet"
   description = "Deletes a VPC subnet in GCP."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -25,11 +25,11 @@ pipeline "delete_vpc_subnet" {
   }
 
   step "container" "delete_vpc_subnet" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["compute", "networks", "subnets", "delete", param.subnet_name, "--region", param.region]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "compute", "networks", "subnets", "delete", param.subnet_name, "--region", param.region, "--format=json"]
     env = {
-      GCP_CREDS      = file(param.application_credentials_path),
-      GCP_PROJECT_ID = param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 }

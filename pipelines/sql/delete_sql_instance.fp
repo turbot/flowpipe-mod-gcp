@@ -2,10 +2,10 @@ pipeline "delete_sql_instance" {
   title       = "Delete a Cloud SQL instance"
   description = "Delete a GCP Cloud SQL instance."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -20,11 +20,11 @@ pipeline "delete_sql_instance" {
   }
 
   step "container" "delete_sql_instance" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["sql", "instances", "delete", param.instance_name]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "sql", "instances", "delete", param.instance_name, "--format=json"]
     env = {
-      GCP_CREDS      = file(param.application_credentials_path),
-      GCP_PROJECT_ID = param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 }

@@ -2,10 +2,14 @@ pipeline "attach_compute_instance_to_disk" {
   title       = "Attach a GCP compute instance to a disk"
   description = "This pipeline attaches a GCP compute instance to a disk."
 
-  param "application_credentials_path" {
+  tags = {
+    type = "featured"
+  }
+
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -30,11 +34,11 @@ pipeline "attach_compute_instance_to_disk" {
   }
 
   step "container" "attach_compute_instance_to_disk" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["compute", "instances", "attach-disk", param.instance_name, "--disk", param.disk_name, "--zone", param.zone]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "compute", "instances", "attach-disk", param.instance_name, "--disk", param.disk_name, "--zone", param.zone, "--format=json"]
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

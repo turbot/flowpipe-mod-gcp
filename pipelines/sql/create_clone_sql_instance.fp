@@ -2,10 +2,10 @@ pipeline "clone_sql_instance" {
   title       = "Clone a Cloud SQL instance"
   description = "This pipeline clones a GCP Cloud SQL instance."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -25,14 +25,13 @@ pipeline "clone_sql_instance" {
   }
 
   step "container" "clone_sql_instance" {
-    image = "my-gcloud-image-latest"
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd = [
-      "sql", "instances", "clone", param.source_instance_name,
-      param.clone_instance_name
+      "gcloud", "sql", "instances", "clone", param.source_instance_name, param.clone_instance_name, "--format=json"
     ]
     env = {
-      GCP_CREDS      = file(param.application_credentials_path),
-      GCP_PROJECT_ID = param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

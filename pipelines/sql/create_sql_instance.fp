@@ -2,10 +2,14 @@ pipeline "create_sql_instance" {
   title       = "Create a Cloud SQL instance"
   description = "This pipeline creates a GCP Cloud SQL instance."
 
-  param "application_credentials_path" {
+  tags = {
+    type = "featured"
+  }
+
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -30,15 +34,16 @@ pipeline "create_sql_instance" {
   }
 
   step "container" "create_sql_instance" {
-    image = "my-gcloud-image-latest"
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd = [
-      "sql", "instances", "create", param.instance_name,
+      "gcloud", "sql", "instances", "create", param.instance_name,
       "--region", param.region,
-      "--database-version", param.database_version
+      "--database-version", param.database_version,
+      "--format=json"
     ]
     env = {
-      GCP_CREDS      = file(param.application_credentials_path),
-      GCP_PROJECT_ID = param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

@@ -2,10 +2,14 @@ pipeline "create_vpc_firewall_rule" {
   title       = "Create a VPC firewall rule"
   description = "Creates a firewall rule in GCP VPC network."
 
-  param "application_credentials_path" {
+  tags = {
+    type = "featured"
+  }
+
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -58,22 +62,22 @@ pipeline "create_vpc_firewall_rule" {
     type        = string
     description = "The direction of traffic to which the firewall rule applies."
     optional    = true
-    }
+  }
 
   step "container" "create_vpc_firewall_rule" {
-    image = "my-gcloud-image-latest"
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd = concat(
-      ["compute", "firewall-rules", "create", param.firewall_rule_name, "--network", param.network_name],
-      param.allowed_ports != null ? ["--allow",join(",",param.allowed_ports)] : [],
-      param.source_ranges != null ? ["--source-ranges", join(",",param.source_ranges)] : [],
-      param.rules != null ? ["--rules", join(",",param.rules)] : [],
+      ["gcloud", "compute", "firewall-rules", "create", param.firewall_rule_name, "--network", param.network_name, "--format=json"],
+      param.allowed_ports != null ? ["--allow", join(",", param.allowed_ports)] : [],
+      param.source_ranges != null ? ["--source-ranges", join(",", param.source_ranges)] : [],
+      param.rules != null ? ["--rules", join(",", param.rules)] : [],
       param.action != null ? ["--action", param.action] : [],
       param.priority != null ? ["--priority", param.priority] : [],
       param.direction != null ? ["--direction", param.direction] : []
     )
     env = {
-      GCP_CREDS      = file(param.application_credentials_path),
-      GCP_PROJECT_ID = param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

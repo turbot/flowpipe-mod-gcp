@@ -2,10 +2,10 @@ pipeline "list_compute_disks" {
   title       = "List Compute Disks"
   description = "This pipeline lists all Compute Engine disks in a GCP project."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -15,11 +15,11 @@ pipeline "list_compute_disks" {
   }
 
   step "container" "list_compute_disks" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["compute", "disks", "list"]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "compute", "disks", "list", "--format=json"]
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

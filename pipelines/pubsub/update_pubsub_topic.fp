@@ -2,10 +2,14 @@ pipeline "update_pubsub_topic" {
   title       = "Update GCP Pub/Sub Topics"
   description = "This pipeline updates GCP Pub/Sub Topics."
 
-  param "application_credentials_path" {
+  tags = {
+    type = "featured"
+  }
+
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -38,15 +42,15 @@ pipeline "update_pubsub_topic" {
   }
 
   step "container" "update_pubsub_topic" {
-    image = "my-gcloud-image-latest"
-    cmd = concat(["pubsub", "topics", "update", param.topic_name],
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd = concat(["gcloud", "pubsub", "topics", "update", param.topic_name, "--format=json"],
       param.message_retention_duration != null ? ["--message-retention-duration", param.message_retention_duration] : [],
       param.remove_labels != null ? ["--remove-labels", join(",", param.remove_labels)] : [],
       param.update_labels != null ? ["--update-labels", join(",", [for key, value in param.update_labels : "${key}=${value}"])] : []
     )
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

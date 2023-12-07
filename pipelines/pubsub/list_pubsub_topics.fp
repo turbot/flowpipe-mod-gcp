@@ -2,10 +2,10 @@ pipeline "list_pubsub_topics" {
   title       = "List Pub/Sub Topics"
   description = "List all Pub/Sub topics in a GCP project."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -15,11 +15,11 @@ pipeline "list_pubsub_topics" {
   }
 
   step "container" "list_pubsub_topics" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["pubsub", "topics", "list"]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "pubsub", "topics", "list", "--format=json"]
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

@@ -2,10 +2,10 @@ pipeline "delete_pubsub_subscriptions" {
   title       = "Delete Pub/Sub Subscriptions"
   description = "This pipeline deletes Pub/Sub subscriptions in a GCP project."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -20,11 +20,11 @@ pipeline "delete_pubsub_subscriptions" {
   }
 
   step "container" "delete_pubsub_subscriptions" {
-    image = "my-gcloud-image-latest"
-    cmd   = concat(["pubsub", "subscriptions", "delete"], param.subscription_names)
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = concat(["gcloud", "pubsub", "subscriptions", "delete", "--format=json"], param.subscription_names)
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 }

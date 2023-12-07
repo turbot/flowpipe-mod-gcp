@@ -2,10 +2,14 @@ pipeline "list_storage_buckets" {
   title       = "List GCP Storage Buckets"
   description = "List all GCP Storage buckets in a project."
 
-  param "application_credentials_path" {
+  tags = {
+    type = "featured"
+  }
+
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -15,11 +19,11 @@ pipeline "list_storage_buckets" {
   }
 
   step "container" "list_storage_buckets" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["storage", "buckets", "list"]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "storage", "buckets", "list", "--format=json"]
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

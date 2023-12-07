@@ -2,10 +2,10 @@ pipeline "test_create_pubsub_topic" {
   title       = "Manage Pub/Sub topic"
   description = "Create and delete Pub/Sub topics in a GCP project."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -38,11 +38,11 @@ pipeline "test_create_pubsub_topic" {
     }
   }
 
-output "create_pubsub_topic" {
-  value = !is_error(step.pipeline.create_pubsub_topic) ? "failed" : "succeeded"
-}
+  output "create_pubsub_topic" {
+    value = !is_error(step.pipeline.create_pubsub_topic) ? "failed" : "succeeded"
+  }
 
-output "delete_pubsub_topic" {
-  value = !is_error(step.pipeline.delete_pubsub_topic) ? "failed" : "succeeded"
-}
+  output "delete_pubsub_topic" {
+    value = !is_error(step.pipeline.delete_pubsub_topic) ? "failed" : "succeeded"
+  }
 }

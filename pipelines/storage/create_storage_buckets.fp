@@ -2,10 +2,10 @@ pipeline "create_storage_buckets" {
   title       = "Create GCP storage buckets"
   description = "This pipeline creates GCP storage buckets."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -20,11 +20,11 @@ pipeline "create_storage_buckets" {
   }
 
   step "container" "create_storage_buckets" {
-    image = "my-gcloud-image-latest"
-    cmd   = concat(["storage", "buckets", "create"], param.bucket_urls)
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = concat(["gcloud", "storage", "buckets", "create", "--format=json"], param.bucket_urls)
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 }

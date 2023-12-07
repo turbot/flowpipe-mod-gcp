@@ -2,10 +2,14 @@ pipeline "delete_vpc_firewall_rule" {
   title       = "Delete a VPC firewall rule"
   description = "This pipeline deletes a VPC firewall rule in your GCP account."
 
-  param "application_credentials_path" {
+  tags = {
+    type = "featured"
+  }
+
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -20,11 +24,11 @@ pipeline "delete_vpc_firewall_rule" {
   }
 
   step "container" "delete_vpc_firewall_rule" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["compute", "firewall-rules", "delete", param.firewall_rule_name]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "compute", "firewall-rules", "delete", param.firewall_rule_name, "--format=json"]
     env = {
-      GCP_CREDS      = file(param.application_credentials_path),
-      GCP_PROJECT_ID = param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 }

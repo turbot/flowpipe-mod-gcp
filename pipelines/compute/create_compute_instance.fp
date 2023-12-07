@@ -2,10 +2,14 @@ pipeline "create_compute_instance" {
   title       = "Create a GCP compute instance"
   description = "This pipeline creates a GCP compute instance."
 
-  param "application_credentials_path" {
+  tags = {
+    type = "featured"
+  }
+
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -35,11 +39,11 @@ pipeline "create_compute_instance" {
   }
 
   step "container" "create_compute_instance" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["compute", "instances", "create", param.instance_name, "--zone", param.zone, "--machine-type", param.machine_type, "--boot-disk-size", param.boot_disk_size]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "compute", "instances", "create", param.instance_name, "--zone", param.zone, "--machine-type", param.machine_type, "--boot-disk-size", param.boot_disk_size, "--format=json"]
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

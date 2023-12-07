@@ -2,10 +2,10 @@ pipeline "add_labels_to_compute_disk" {
   title       = "Add labels to a GCP compute disk"
   description = "This pipeline adds labels to a GCP compute disk."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -30,14 +30,14 @@ pipeline "add_labels_to_compute_disk" {
   }
 
   step "container" "add_labels_to_compute_disk" {
-    image = "my-gcloud-image-latest"
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd = concat(
-      ["compute", "disks", "add-labels", param.disk_name, "--zone", param.zone, "--labels"],
+      ["gcloud", "compute", "disks", "add-labels", param.disk_name, "--zone", param.zone, "--labels", "--format=json"],
       [join(",", [for key, value in param.labels : "${key}=${value}"])]
     )
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

@@ -2,10 +2,14 @@ pipeline "create_compute_snapshot" {
   title       = "Create GCP Compute Engine Snapshot"
   description = "This pipeline creates a snapshot of a GCP Compute Engine instance."
 
-  param "application_credentials_path" {
+  tags = {
+    type = "featured"
+  }
+
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -30,11 +34,11 @@ pipeline "create_compute_snapshot" {
   }
 
   step "container" "create_compute_snapshot" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["compute", "snapshots", "create", param.snapshot_name, "--source-disk-zone", param.source_disk_zone, "--source-disk", param.source_disk_name]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "compute", "snapshots", "create", param.snapshot_name, "--source-disk-zone", param.source_disk_zone, "--source-disk", param.source_disk_name, "--format=json"]
     env = {
-      GCP_CREDS      = file(param.application_credentials_path),
-      GCP_PROJECT_ID = param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 

@@ -2,10 +2,10 @@ pipeline "delete_compute_instance" {
   title       = "Delete a GCP compute instance"
   description = "This pipeline will delete a GCP compute instance."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -25,11 +25,11 @@ pipeline "delete_compute_instance" {
   }
 
   step "container" "delete_compute_instance" {
-    image = "my-gcloud-image-latest"
-    cmd   = ["compute", "instances", "delete", param.instance_name, "--zone", param.zone]
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = ["gcloud", "compute", "instances", "delete", param.instance_name, "--zone", param.zone, "--format=json"]
     env = {
-      GCP_CREDS : file(param.application_credentials_path),
-      GCP_PROJECT_ID : param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 }

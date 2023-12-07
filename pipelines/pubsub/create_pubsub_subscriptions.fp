@@ -2,10 +2,10 @@ pipeline "create_pubsub_subscriptions" {
   title       = "Create Pub/Sub Subscriptions"
   description = "This pipeline creates Pub/Sub subscriptions in a GCP project."
 
-  param "application_credentials_path" {
+  param "cred" {
     type        = string
-    description = local.application_credentials_path_param_description
-    default     = var.application_credentials_path
+    description = local.creds_param_description
+    default     = "default"
   }
 
   param "project_id" {
@@ -25,11 +25,11 @@ pipeline "create_pubsub_subscriptions" {
   }
 
   step "container" "create_pubsub_subscriptions" {
-    image = "my-gcloud-image-latest"
-    cmd   = concat(["pubsub", "subscriptions", "create"], param.subscription_names, ["--topic", param.topic_name])
+    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
+    cmd   = concat(["gcloud", "pubsub", "subscriptions", "create", "--format=json"], param.subscription_names, ["--topic", param.topic_name])
     env = {
-      GCP_CREDS      = file(param.application_credentials_path),
-      GCP_PROJECT_ID = param.project_id,
+      CLOUDSDK_CORE_PROJECT      = param.project_id
+      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
   }
 
