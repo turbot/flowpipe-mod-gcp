@@ -4,7 +4,7 @@ mod "gcp" {
   color         = "#ea4335"
   documentation = file("./docs/index.md")
   icon          = "/images/flowpipe/mods/turbot/gcp.svg"
-  categories    = ["gcp"]
+  categories    = ["public cloud"]
 
   opengraph {
     title       = "GCP"
