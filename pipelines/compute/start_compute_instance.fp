@@ -1,6 +1,6 @@
 pipeline "start_compute_instance" {
-  title       = "Start a GCP compute instance"
-  description = "This pipeline starts a GCP compute instance."
+  title       = "Start Compute Instance"
+  description = "This pipeline  is used to start a stopped Compute Engine virtual machine. Only a stopped virtual machine can be started."
 
   param "cred" {
     type        = string

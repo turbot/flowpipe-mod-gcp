@@ -1,6 +1,6 @@
 pipeline "update_compute_instance" {
-  title       = "Update a GCP compute instance"
-  description = "This pipeline updates a GCP compute instance."
+  title       = "Update Compute Instance"
+  description = "This pipeline updates labels and requested CPU Platform for a Compute Engine virtual machine."
 
   param "cred" {
     type        = string

@@ -1,6 +1,6 @@
 pipeline "create_storage_buckets" {
-  title       = "Create GCP storage buckets"
-  description = "This pipeline creates GCP storage buckets."
+  title       = "Create Storage Buckets"
+  description = "This pipeline creates new storage buckets."
 
   param "cred" {
     type        = string

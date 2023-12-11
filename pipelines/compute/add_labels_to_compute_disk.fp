@@ -1,6 +1,6 @@
 pipeline "add_labels_to_compute_disk" {
-  title       = "Add labels to a GCP compute disk"
-  description = "This pipeline adds labels to a GCP compute disk."
+  title       = "Add Labels to Compute Disk"
+  description = "This pipeline adds labels to a Google Compute Engine persistent disk."
 
   param "cred" {
     type        = string

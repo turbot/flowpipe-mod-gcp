@@ -1,10 +1,6 @@
 pipeline "stop_compute_instance" {
-  title       = "Stop a GCP compute instance"
-  description = "This pipeline stops a GCP compute instance."
-
-  tags = {
-    type = "featured"
-  }
+  title       = "Stop Compute Instance"
+  description = "This pipeline is used to stop a Compute Engine virtual machine. Stopping a VM performs a clean shutdown, much like invoking the shutdown functionality of a workstation or laptop."
 
   param "cred" {
     type        = string

@@ -1,6 +1,6 @@
 pipeline "list_storage_buckets" {
-  title       = "List GCP Storage Buckets"
-  description = "List all GCP Storage buckets in a project."
+  title       = "List Storage Buckets"
+  description = "This pipeline list Cloud Storage buckets."
 
   tags = {
     type = "featured"

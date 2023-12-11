@@ -1,10 +1,6 @@
 pipeline "create_compute_snapshot" {
-  title       = "Create GCP Compute Engine Snapshot"
-  description = "This pipeline creates a snapshot of a GCP Compute Engine instance."
-
-  tags = {
-    type = "featured"
-  }
+  title       = "Create Compute Engine Snapshot"
+  description = "This pipeline creates snapshot of persistent disk. Snapshots are useful for backing up persistent disk data and for creating custom images."
 
   param "cred" {
     type        = string

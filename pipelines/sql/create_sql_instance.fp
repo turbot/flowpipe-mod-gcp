@@ -1,6 +1,6 @@
 pipeline "create_sql_instance" {
-  title       = "Create a Cloud SQL instance"
-  description = "This pipeline creates a GCP Cloud SQL instance."
+  title       = "Create Cloud SQL Instance"
+  description = "This pipeline creates a new Cloud SQL instance."
 
   tags = {
     type = "featured"

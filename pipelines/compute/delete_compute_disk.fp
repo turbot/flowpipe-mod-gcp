@@ -1,10 +1,6 @@
 pipeline "delete_compute_disk" {
-  title       = "Delete a GCP compute disk"
-  description = "This pipeline deletes a GCP compute disk."
-
-  tags = {
-    type = "featured"
-  }
+  title       = "Delete Compute Disk"
+  description = "This pipeline deletes a Compute Engine disk. A disk can be deleted only if it is not attached to any virtual machine instances."
 
   param "cred" {
     type        = string

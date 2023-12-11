@@ -1,6 +1,6 @@
 pipeline "remove_labels_from_compute_instance" {
-  title       = "Remove labels from a GCP compute instance"
-  description = "This pipeline removes all labels from a GCP compute instance."
+  title       = "Remove Labels from Compute Instance"
+  description = "This pipeline removes all labels from a Google Compute Engine virtual machine instance."
 
   param "cred" {
     type        = string

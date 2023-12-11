@@ -1,6 +1,6 @@
 pipeline "delete_vpc_firewall_rule" {
-  title       = "Delete a VPC firewall rule"
-  description = "This pipeline deletes a VPC firewall rule in your GCP account."
+  title       = "Delete VPC Firewall Rule"
+  description = "This pipeline deletes deletes Compute Engine firewall rules."
 
   tags = {
     type = "featured"

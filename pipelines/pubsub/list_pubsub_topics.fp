@@ -1,6 +1,6 @@
 pipeline "list_pubsub_topics" {
   title       = "List Pub/Sub Topics"
-  description = "List all Pub/Sub topics in a GCP project."
+  description = "Lists all of the Cloud Pub/Sub topics that exist in a given project that match the given topic name filter."
 
   param "cred" {
     type        = string

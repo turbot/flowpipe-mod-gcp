@@ -1,6 +1,6 @@
 pipeline "remove_specific_label_from_compute_disk" {
-  title       = "Remove a specific label from a GCP compute disk"
-  description = "This pipeline removes a specific label from a GCP compute disk."
+  title       = "Remove Specific Label from Compute Disk"
+  description = "This pipeline removes specific labels from a Google Compute Engine persistent disk."
 
   param "cred" {
     type        = string

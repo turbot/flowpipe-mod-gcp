@@ -1,10 +1,6 @@
 pipeline "create_vpc_firewall_rule" {
-  title       = "Create a VPC firewall rule"
-  description = "Creates a firewall rule in GCP VPC network."
-
-  tags = {
-    type = "featured"
-  }
+  title       = "Create VPC Firewall Rule"
+  description = "This pipeline is used to create firewall rules to allow/deny incoming/outgoing traffic."
 
   param "cred" {
     type        = string

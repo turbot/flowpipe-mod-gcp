@@ -1,6 +1,6 @@
 pipeline "create_vpc_subnet" {
   title       = "Create VPC Subnet"
-  description = "Creates a new subnet in an existing Virtual Private Cloud (VPC) in your GCP account."
+  description = "This pipeline define a subnetwork for a network in custom subnet mode. Subnets must be uniquely named per region."
 
   param "cred" {
     type        = string

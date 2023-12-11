@@ -1,6 +1,6 @@
 pipeline "update_pubsub_topic" {
-  title       = "Update GCP Pub/Sub Topics"
-  description = "This pipeline updates GCP Pub/Sub Topics."
+  title       = "Update Pub/Sub Topics"
+  description = "This pipeline updates an existing Cloud Pub/Sub topic."
 
   tags = {
     type = "featured"

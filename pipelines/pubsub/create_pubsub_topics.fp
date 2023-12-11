@@ -1,6 +1,6 @@
 pipeline "create_pubsub_topics" {
   title       = "Create Pub/Sub Topics"
-  description = "This pipeline creates Pub/Sub topics in a GCP project."
+  description = "This pipeline creates one or more Cloud Pub/Sub topics."
 
   param "cred" {
     type        = string

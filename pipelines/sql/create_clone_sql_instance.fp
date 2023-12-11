@@ -1,6 +1,6 @@
 pipeline "clone_sql_instance" {
-  title       = "Clone a Cloud SQL instance"
-  description = "This pipeline clones a GCP Cloud SQL instance."
+  title       = "Clone Cloud SQL Instance"
+  description = "This pipeline creates a clone of a Cloud SQL instance. The clone is an independent copy of the source instance with the same data and settings. Source and destination instances must be in the same project. An instance can be cloned from its current state, or from an earlier point in time."
 
   param "cred" {
     type        = string

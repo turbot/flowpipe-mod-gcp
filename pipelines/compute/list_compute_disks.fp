@@ -1,6 +1,6 @@
 pipeline "list_compute_disks" {
   title       = "List Compute Disks"
-  description = "This pipeline lists all Compute Engine disks in a GCP project."
+  description = "This pipeline displays all Google Compute Engine disks in a project."
 
   param "cred" {
     type        = string

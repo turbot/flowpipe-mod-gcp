@@ -1,6 +1,6 @@
 pipeline "create_compute_disk" {
-  title       = "Create a GCP compute disk"
-  description = "This pipeline creates a GCP compute disk."
+  title       = "Create Compute Disk"
+  description = "This pipeline creates Compute Engine persistent disk."
 
   param "cred" {
     type        = string

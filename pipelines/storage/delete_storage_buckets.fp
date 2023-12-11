@@ -1,6 +1,6 @@
 pipeline "delete_storage_buckets" {
-  title       = "Delete GCP storage buckets"
-  description = "This pipeline deletes GCP storage buckets."
+  title       = "Delete Storage Buckets"
+  description = "This pipeline deletes one or more Cloud Storage buckets."
 
   param "cred" {
     type        = string

@@ -1,6 +1,6 @@
 pipeline "delete_sql_instance" {
-  title       = "Delete a Cloud SQL instance"
-  description = "Delete a GCP Cloud SQL instance."
+  title       = "Delete Cloud SQL Instance"
+  description = "This pipeline deletes a Cloud SQL instance."
 
   param "cred" {
     type        = string

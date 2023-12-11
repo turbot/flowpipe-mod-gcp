@@ -1,6 +1,6 @@
 pipeline "update_pubsub_subscription" {
-  title       = "Update GCP Pub/Sub Subscriptions"
-  description = "This pipeline updates the labels on a GCP Pub/Sub subscription."
+  title       = "Update Pub/Sub Subscriptions"
+  description = "This pipeline updates an existing Cloud Pub/Sub subscription."
 
   param "cred" {
     type        = string

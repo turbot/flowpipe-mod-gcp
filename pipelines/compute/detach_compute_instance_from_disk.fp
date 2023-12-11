@@ -1,6 +1,6 @@
 pipeline "detach_compute_instance_from_disk" {
-  title       = "Detach a GCP compute instance from a disk"
-  description = "This pipeline detaches a GCP compute instance from a disk."
+  title       = "Detach Compute Instance from Disk"
+  description = "This pipeline is used to detach disks from virtual machines."
 
   param "cred" {
     type        = string

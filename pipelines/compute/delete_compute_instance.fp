@@ -1,6 +1,6 @@
 pipeline "delete_compute_instance" {
-  title       = "Delete a GCP compute instance"
-  description = "This pipeline will delete a GCP compute instance."
+  title       = "Delete Compute Instance"
+  description = "This pipeline deletes Compute Engine virtual machine instance."
 
   param "cred" {
     type        = string

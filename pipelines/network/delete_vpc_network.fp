@@ -1,6 +1,6 @@
 pipeline "delete_vpc_network" {
-  title       = "Delete a VPC network"
-  description = "This pipeline deletes a VPC network in GCP."
+  title       = "Delete VPC Network"
+  description = "This pipeline deletes Compute Engine networks. Networks can only be deleted when no other resources (e.g., virtual machine instances) refer to them."
 
   param "cred" {
     type        = string

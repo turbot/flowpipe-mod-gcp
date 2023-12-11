@@ -1,6 +1,6 @@
 pipeline "delete_vpc_subnet" {
-  title       = "Delete a VPC subnet"
-  description = "Deletes a VPC subnet in GCP."
+  title       = "Delete VPC Subnet"
+  description = "This pipeline deletes one or more Google Cloud subnetworks. Subnetworks can only be deleted when no other resources, such as VM instances, refer to them."
 
   param "cred" {
     type        = string

@@ -1,6 +1,6 @@
 pipeline "delete_pubsub_topics" {
   title       = "Delete Pub/Sub Topics"
-  description = "This pipeline deletes Pub/Sub topics in a GCP project."
+  description = "This pipeline deletes one or more Cloud Pub/Sub topics."
 
   param "cred" {
     type        = string

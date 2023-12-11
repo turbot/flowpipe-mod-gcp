@@ -1,6 +1,6 @@
 pipeline "add_labels_to_compute_instance" {
-  title       = "Add labels to a GCP compute instance"
-  description = "This pipeline adds labels to a GCP compute instance."
+  title       = "Add Labels to Compute Instance"
+  description = "This pipeline adds labels to a Google Compute Engine virtual machine instance."
 
   param "cred" {
     type        = string

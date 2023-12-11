@@ -1,10 +1,6 @@
 pipeline "create_compute_instance" {
-  title       = "Create a GCP compute instance"
-  description = "This pipeline creates a GCP compute instance."
-
-  tags = {
-    type = "featured"
-  }
+  title       = "Create Compute Instance"
+  description = "This pipeline facilitates the creation of Compute Engine virtual machines."
 
   param "cred" {
     type        = string

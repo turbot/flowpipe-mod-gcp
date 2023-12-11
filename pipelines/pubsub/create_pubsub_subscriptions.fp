@@ -1,6 +1,6 @@
 pipeline "create_pubsub_subscriptions" {
   title       = "Create Pub/Sub Subscriptions"
-  description = "This pipeline creates Pub/Sub subscriptions in a GCP project."
+  description = "This pipeline creates one or more Cloud Pub/Sub subscriptions for a given topic. The new subscription defaults to a PULL subscription unless a push endpoint is specified."
 
   param "cred" {
     type        = string

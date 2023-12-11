@@ -1,10 +1,6 @@
 pipeline "update_compute_disk" {
-  title       = "Update a GCP compute disk"
-  description = "This pipeline updates a GCP compute disk."
-
-  tags = {
-    type = "featured"
-  }
+  title       = "Update Compute Disk"
+  description = "This pipeline  updates a Compute Engine persistent disk."
 
   param "cred" {
     type        = string

@@ -1,6 +1,6 @@
 pipeline "attach_compute_instance_to_disk" {
-  title       = "Attach a GCP compute instance to a disk"
-  description = "This pipeline attaches a GCP compute instance to a disk."
+  title       = "Attach Compute Instance to Disk"
+  description = "This pipeline is used to attach a disk to an instance."
 
   tags = {
     type = "featured"

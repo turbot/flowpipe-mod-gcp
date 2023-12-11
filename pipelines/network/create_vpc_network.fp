@@ -1,10 +1,6 @@
 pipeline "create_vpc_network" {
   title       = "Create VPC"
-  description = "Creates a new Virtual Private Cloud (VPC) in your GCP account."
-
-  tags = {
-    type = "featured"
-  }
+  description = "This pipeline is used to create virtual networks."
 
   param "cred" {
     type        = string

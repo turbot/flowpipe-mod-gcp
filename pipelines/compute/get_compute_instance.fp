@@ -1,10 +1,6 @@
 pipeline "get_compute_instance" {
-  title       = "Get GCP Compute Instance Details"
-  description = "This pipeline retrieves details about a GCP compute instance."
-
-  tags = {
-    type = "featured"
-  }
+  title       = "Get Compute Instance Details"
+  description = "This pipeline displays all data associated with a Compute Engine virtual machine instance."
 
   param "cred" {
     type        = string
