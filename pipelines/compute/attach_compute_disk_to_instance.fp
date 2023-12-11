@@ -1,6 +1,10 @@
-pipeline "detach_compute_instance_from_disk" {
-  title       = "Detach Compute Instance from Disk"
-  description = "This pipeline is used to detach disks from virtual machines."
+pipeline "attach_compute_disk_to_instance" {
+  title       = "Attach Compute Disk to Instance"
+  description = "This pipeline is used to attach a disk to an instance."
+
+  tags = {
+    type = "featured"
+  }
 
   param "cred" {
     type        = string
@@ -29,9 +33,9 @@ pipeline "detach_compute_instance_from_disk" {
     description = "The GCP zone."
   }
 
-  step "container" "detach_compute_instance_from_disk" {
+  step "container" "attach_compute_disk_to_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = ["gcloud", "compute", "instances", "detach-disk", param.instance_name, "--disk", param.disk_name, "--zone", param.zone, "--format=json"]
+    cmd   = ["gcloud", "compute", "instances", "attach-disk", param.instance_name, "--disk", param.disk_name, "--zone", param.zone, "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
@@ -39,7 +43,7 @@ pipeline "detach_compute_instance_from_disk" {
   }
 
   output "instance" {
-    description = "Information about the instance."
-    value       = jsondecode(step.container.detach_compute_instance_from_disk.stdout)
+    description = "Information about the GCP instance."
+    value       = jsondecode(step.container.attach_compute_disk_to_instance.stdout)
   }
 }
