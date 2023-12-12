@@ -43,7 +43,7 @@ vi ~/.flowpipe/config/gcp.fpc
 
 ```hcl
 credential "gcp" "gcp_token" {
-  access_token = "AQoDX..."
+  credentials = "path/to/credentials.json"
 }
 ```
 
