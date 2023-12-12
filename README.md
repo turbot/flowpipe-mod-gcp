@@ -28,24 +28,6 @@ git clone https://github.com/turbot/flowpipe-mod-gcp.git
 cd flowpipe-mod-gcp
 ```
 
-### Configuration
-
-Configure your credentials:
-
-```sh
-cp flowpipe.fpvars.example flowpipe.fpvars
-vi flowpipe.fpvars
-```
-
-It's recommended to configure credentials through [input variables](https://flowpipe.io/docs/using-flowpipe/mod-variables) by setting them in the `flowpipe.fpvars` file.
-
-**Note:** Credentials can also be passed in each pipeline run with `--arg project_id=YourProjectID --arg application_credentials_path=YourApplicationCredentialsFilePath`.
-
-
-Additional input variables may be defined in the mod's `variables.fp` file that can be configured to better match your environment and requirements.
-
-Variables with defaults set do not need to be explicitly set, but it may be helpful to override them.
-
 ### Credentials
 
 By default, the following environment variables will be used for authentication:
