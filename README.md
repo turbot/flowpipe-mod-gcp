@@ -42,7 +42,7 @@ vi ~/.flowpipe/config/gcp.fpc
 ```
 
 ```hcl
-credential "gcp" "gcp_token" {
+credential "gcp" "gcp_cred" {
   credentials = "path/to/credentials.json"
 }
 ```
