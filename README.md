@@ -32,8 +32,7 @@ cd flowpipe-mod-gcp
 
 By default, the following environment variables will be used for authentication:
 
-- `CLOUDSDK_CORE_PROJECT`
-- `CLOUDSDK_AUTH_ACCESS_TOKEN`
+- `GOOGLE_APPLICATION_CREDENTIALS`
 
 You can also create `credential` resources in configuration files:
 
@@ -42,10 +41,12 @@ vi ~/.flowpipe/config/gcp.fpc
 ```
 
 ```hcl
-credential "gcp" "gcp_cred" {
+credential "gcp" "gcp_token" {
   credentials = "path/to/credentials.json"
 }
 ```
+
+If no environment variables or configuration files are found, the mod will attempt to use [Application Default Credentials](https://cloud.google.com/docs/authentication/provide-credentials-adc) if configured.
 
 For more information on credentials in Flowpipe, please see [Managing Credentials](https://flowpipe.io/docs/run/credentials).
 
@@ -79,7 +80,7 @@ For more examples on how you can run pipelines, please see [Run Pipelines](https
 
 ### Configuration
 
-To avoid entering the project_id for each pipeline run, you can configure your default project_id by setting the `project_id` variable:
+To avoid entering the project ID for each pipeline run, you can configure your default project ID by setting the `project_id` variable:
 
 ```sh
 cp flowpipe.fpvars.example flowpipe.fpvars
