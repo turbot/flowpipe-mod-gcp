@@ -1,16 +1,16 @@
 # GCP Mod for Flowpipe
 
-A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
-- Create Compute Instances
-- List Storage Buckets
-- Create VPCs and Subnets
-- And more!
+GCP pipeline library for [Flowpipe](https://flowpipe.io), enabling seamless integration of GCP services into your workflows.
 
 ## Documentation
 
 - **[Pipelines →](https://hub.flowpipe.io/mods/turbot/gcp/pipelines)**
 
 ## Getting started
+
+### Requirements
+
+Docker daemon must be installed and running. Please see [Install Docker Engine](https://docs.docker.com/engine/install/) for more information.
 
 ### Installation
 
@@ -46,47 +46,81 @@ Additional input variables may be defined in the mod's `variables.fp` file that 
 
 Variables with defaults set do not need to be explicitly set, but it may be helpful to override them.
 
-### Usage
+### Credentials
 
-Start the Flowpipe server to get started:
+By default, the following environment variables will be used for authentication:
+
+- `CLOUDSDK_CORE_PROJECT`
+- `CLOUDSDK_AUTH_ACCESS_TOKEN`
+
+You can also create `credential` resources in configuration files:
 
 ```sh
-flowpipe server
+vi ~/.flowpipe/config/gcp.fpc
+```
+
+```hcl
+credential "gcp" "gcp_token" {
+  access_token = "AQoDX..."
+}
+```
+
+For more information on credentials in Flowpipe, please see [Managing Credentials](https://flowpipe.io/docs/run/credentials).
+
+### Usage
+
+List pipelines:
+
+```sh
+flowpipe pipeline list
 ```
 
 Run a pipeline:
 
 ```sh
-flowpipe pipeline run list_pubsub_topics
+flowpipe pipeline run create_compute_instance
 ```
 
-## Passing pipeline arguments
-
-To pass values into pipeline [parameters](https://flowpipe.io/docs/using-flowpipe/pipeline-parameters), use the following syntax:
+You can pass in pipeline arguments as well:
 
 ```sh
-flowpipe pipeline run create_compute_instance --arg instance_name="i-1234567890abcdef0" --arg machine_type="n1-standard-1" --arg zone="us-central1-a" --arg boot_disk_size="10"
+flowpipe pipeline run create_compute_instance --arg instance_name=i-1234567890abcdef0 --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
 ```
 
-Multiple pipeline args can be passed in with separate `--arg` flags.
+To use a specific `credential`, specify the `cred` pipeline argument:
 
-For more information on passing arguments, please see [Pipeline Args](https://flowpipe.io/docs/run/pipelines).
+```sh
+flowpipe pipeline run create_compute_instance --arg instance_name=i-1234567890abcdef0 --arg cred=gcp_token --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
+```
 
-## Contributing
+For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
 
-If you have an idea for additional controls or just want to help maintain and extend this mod ([or others](https://github.com/topics/flowpipe-mod)) we would love you to join the community and start contributing.
+### Configuration
 
-- **[Join #flowpipe in our Slack community ](https://flowpipe.io/community/join)**
+To avoid entering the project_id for each pipeline run, you can configure your default project_id by setting the `project_id` variable:
 
-Please see the [contribution guidelines](https://github.com/turbot/flowpipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/flowpipe/blob/main/CODE_OF_CONDUCT.md).
+```sh
+cp flowpipe.fpvars.example flowpipe.fpvars
+vi flowpipe.fpvars
+```
+
+```hcl
+project_id = "your-project-id"
+```
+
+When running a pipeline, you can override this default project_id with the `project_id` pipeline argument, e.g., `--arg project_id=your-project-id`.
+
+## Open Source & Contributing
+
+This repository is published under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0). Please see our [code of conduct](https://github.com/turbot/.github/blob/main/CODE_OF_CONDUCT.md). We look forward to collaborating with you!
+
+[Flowpipe](https://flowpipe.io) is a product produced from this open source software, exclusively by [Turbot HQ, Inc](https://turbot.com). It is distributed under our commercial terms. Others are allowed to make their own distribution of the software, but cannot use any of the Turbot trademarks, cloud services, etc. You can learn more in our [Open Source FAQ](https://turbot.com/open-source).
+
+## Get Involved
+
+**[Join #flowpipe on Slack →](https://flowpipe.io/community/join)**
 
 Want to help but not sure where to start? Pick up one of the `help wanted` issues:
 
 - [Flowpipe](https://github.com/turbot/flowpipe/labels/help%20wanted)
 - [GCP Mod](https://github.com/turbot/flowpipe-mod-gcp/labels/help%20wanted)
-
-## License
-
-This mod is licensed under the [Apache License 2.0](https://github.com/turbot/flowpipe-mod-gcp/blob/main/LICENSE).
-
-Flowpipe is licensed under the [AGPLv3](https://github.com/turbot/flowpipe/blob/main/LICENSE).
