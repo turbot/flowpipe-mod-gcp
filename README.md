@@ -52,6 +52,53 @@ For more information on credentials in Flowpipe, please see [Managing Credential
 
 ### Usage
 
+[Initialize a mod](https://flowpipe.io/docs/build/index#initializing-a-mod):
+
+```sh
+mkdir my_mod
+cd my_mod
+flowpipe mod init
+```
+
+[Install the GCP mod](https://flowpipe.io/docs/build/mod-dependencies#mod-dependencies) as a dependency:
+
+```sh
+flowpipe mod install github.com/turbot/flowpipe-mod-gcp
+```
+
+[Use the dependency](https://flowpipe.io/docs/build/write-pipelines/index) in a pipeline step:
+
+```sh
+vi my_pipeline.fp
+```
+
+```hcl
+pipeline "my_pipeline" {
+
+  step "pipeline" "list_storage_buckets" {
+    pipeline = gcp.pipeline.list_storage_buckets
+    args = {
+      project_id = "my-project"
+    }
+  }
+}
+```
+
+[Run the pipeline](https://flowpipe.io/docs/run/pipelines):
+
+```sh
+flowpipe pipeline run my_pipeline
+```
+
+### Developing
+
+Clone:
+
+```sh
+git clone https://github.com/turbot/flowpipe-mod-gcp.git
+cd flowpipe-mod-gcp
+```
+
 List pipelines:
 
 ```sh
@@ -61,37 +108,14 @@ flowpipe pipeline list
 Run a pipeline:
 
 ```sh
-flowpipe pipeline run create_compute_instance
-```
-
-You can pass in pipeline arguments as well:
-
-```sh
-flowpipe pipeline run create_compute_instance --arg instance_name=i-1234567890abcdef0 --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
+flowpipe pipeline run create_compute_instance --arg project_id=my-project --arg instance_name=i-1234567890abcdef0 --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
 ```
 
 To use a specific `credential`, specify the `cred` pipeline argument:
 
 ```sh
-flowpipe pipeline run create_compute_instance --arg instance_name=i-1234567890abcdef0 --arg cred=gcp_token --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
+flowpipe pipeline run create_compute_instance --arg project_id=my-project --arg instance_name=i-1234567890abcdef0 --arg cred=gcp_token --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
 ```
-
-For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
-
-### Configuration
-
-To avoid entering the project ID for each pipeline run, you can configure your default project ID by setting the `project_id` variable:
-
-```sh
-cp flowpipe.fpvars.example flowpipe.fpvars
-vi flowpipe.fpvars
-```
-
-```hcl
-project_id = "your-project-id"
-```
-
-When running a pipeline, you can override this default project_id with the `project_id` pipeline argument, e.g., `--arg project_id=your-project-id`.
 
 ## Open Source & Contributing
 

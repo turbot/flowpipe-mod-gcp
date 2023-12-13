@@ -15,7 +15,6 @@ pipeline "delete_vpc_firewall_rule" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   param "firewall_rule_name" {

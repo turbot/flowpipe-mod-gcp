@@ -1,6 +1,6 @@
 pipeline "start_compute_instance" {
   title       = "Start Compute Instance"
-  description = "This pipeline  is used to start a stopped Compute Engine virtual machine. Only a stopped virtual machine can be started."
+  description = "This pipeline is used to start a stopped Compute Engine virtual machine. Only a stopped virtual machine can be started."
 
   param "cred" {
     type        = string
@@ -11,7 +11,6 @@ pipeline "start_compute_instance" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   param "zone" {

@@ -11,7 +11,6 @@ pipeline "delete_storage_buckets" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   param "bucket_urls" {

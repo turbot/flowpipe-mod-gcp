@@ -1,6 +1,6 @@
 pipeline "update_compute_disk" {
   title       = "Update Compute Disk"
-  description = "This pipeline  updates a Compute Engine persistent disk."
+  description = "This pipeline updates a Compute Engine persistent disk."
 
   param "cred" {
     type        = string
@@ -11,7 +11,6 @@ pipeline "update_compute_disk" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   param "zone" {

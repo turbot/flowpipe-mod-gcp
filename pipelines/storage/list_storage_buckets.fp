@@ -15,7 +15,6 @@ pipeline "list_storage_buckets" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   step "container" "list_storage_buckets" {

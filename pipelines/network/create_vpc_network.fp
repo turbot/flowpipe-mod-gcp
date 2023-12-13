@@ -11,7 +11,6 @@ pipeline "create_vpc_network" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   param "subnet_mode" {

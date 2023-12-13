@@ -11,7 +11,6 @@ pipeline "list_pubsub_topics" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   step "container" "list_pubsub_topics" {

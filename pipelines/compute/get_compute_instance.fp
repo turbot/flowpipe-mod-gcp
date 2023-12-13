@@ -11,7 +11,6 @@ pipeline "get_compute_instance" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   param "zone" {

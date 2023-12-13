@@ -11,7 +11,6 @@ pipeline "detach_compute_disk_from_instance" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   param "instance_name" {

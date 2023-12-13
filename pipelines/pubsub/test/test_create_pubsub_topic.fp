@@ -15,7 +15,6 @@ pipeline "test_create_pubsub_topic" {
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default     = var.project_id
   }
 
   param "topic_name" {
