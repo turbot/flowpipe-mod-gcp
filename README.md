@@ -21,13 +21,6 @@ brew tap turbot/tap
 brew install flowpipe
 ```
 
-Clone:
-
-```sh
-git clone https://github.com/turbot/flowpipe-mod-gcp.git
-cd flowpipe-mod-gcp
-```
-
 ### Credentials
 
 By default, the following environment variables will be used for authentication:
