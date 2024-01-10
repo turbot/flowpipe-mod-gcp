@@ -31,7 +31,7 @@ pipeline "add_labels_to_compute_disk" {
   step "container" "add_labels_to_compute_disk" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd = concat(
-      ["gcloud", "compute", "disks", "add-labels", param.disk_name, "--zone", param.zone, "--labels", "--format=json"],
+      ["gcloud", "compute", "disks", "add-labels", param.disk_name, "--zone", param.zone, "--format=json", "--labels"],
       [join(",", [for key, value in param.labels : "${key}=${value}"])]
     )
     env = {
