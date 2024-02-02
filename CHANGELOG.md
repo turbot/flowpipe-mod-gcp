@@ -2,7 +2,7 @@
 
 _Bug fixes_
 
-- Fix commands in add_labels_to_compute_disk and add_labels_to_compute_instance pipelines. ([#7](https://github.com/turbot/flowpipe-mod-gcp/pull/7))
+- Fix the commands in `add_labels_to_compute_disk` and `add_labels_to_compute_instance` pipelines. ([#7](https://github.com/turbot/flowpipe-mod-gcp/pull/7))
 
 ## v0.1.0 [2023-12-13]
 
