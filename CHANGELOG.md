@@ -1,3 +1,9 @@
+## v0.2.0 [2024-02-02]
+
+_Bug fixes_
+
+- Fix commands in add_labels_to_compute_disk and add_labels_to_compute_instance pipelines. ([#7](https://github.com/turbot/flowpipe-mod-gcp/pull/7))
+
 ## v0.1.0 [2023-12-13]
 
 _What's new?_
