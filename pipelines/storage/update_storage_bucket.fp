@@ -30,10 +30,17 @@ pipeline "update_storage_bucket" {
     optional    = true
   }
 
+  param "lifecycle_policy" {
+    type        = string
+    description = "The lifecycle policy for the storage bucket. Optional."
+    optional    = true
+  }
+
   step "container" "update_storage_bucket" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd = concat(["gcloud", "storage", "buckets", "update", param.bucket_name, "--format=json"],
+    cmd = concat(["gcloud", "storage", "buckets", "update", "gs://${param.bucket_name}", "--format=json"],
       param.retention_period != null ? ["--retention-period", param.retention_period] : [],
+      param.lifecycle_policy != null ? ["--lifecycle-file", param.lifecycle_policy] : [],
       param.clear_retention_period == true? ["--clear-retention-period"] : [])
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
