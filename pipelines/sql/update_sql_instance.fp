@@ -30,9 +30,51 @@ pipeline "update_sql_instance" {
     optional    = true
   }
 
+  param "clear_database_flags" {
+    type        = bool
+    description = "Whether to clear all database flags."
+    optional    = true
+  }
+
+  param "backup_start_time" {
+    type        = string
+    description = "The time at which backups should start."
+    optional    = true
+  }
+
+  param "require_ssl" {
+    type        = bool
+    description = "Whether to require SSL for connections."
+    optional    = true
+  }
+
+  param "network" {
+    type        = string
+    description = "The network for the SQL instance."
+    optional    = true
+  }
+
+  param "disable_public_ip" {
+    type        = bool
+    description = "Whether to disable the public IP."
+    optional    = true
+  }
+
+  param "authorized_networks" {
+    type        = list(string)
+    description = "The authorized networks for the SQL instance."
+    optional    = true
+  }
+
   step "container" "update_sql_instance_flags" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd = concat(["gcloud", "sql", "instances", "patch", param.instance_name],
+    cmd = concat(["gcloud", "sql", "instances", "patch", param.instance_name, "--quiet"],
+      param.clear_database_flags == true ? ["--clear-database-flags"] : [],
+      param.require_ssl == true ? ["--require-ssl"] : [],
+      param.authorized_networks != null ? ["--authorized-networks", join(",", param.authorized_networks)] : [],
+      param.backup_start_time != null ? ["--backup-start-time", param.backup_start_time] : [],
+      param.network != null ? ["--network", param.network] : [],
+      param.disable_public_ip != null ? ["--no-assign-ip"] : [],
     param.database_flag_key != null ? ["--database-flags", "${param.database_flag_key}=${param.database_flag_value}"] : [])
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
