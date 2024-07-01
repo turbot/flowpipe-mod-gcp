@@ -21,7 +21,7 @@ pipeline "add_metadata_to_compute_project_info" {
 
   step "container" "add_metadata_to_compute_project_info" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd = concat(["gcloud", "compute", "project-info", "add-metadata"],
+    cmd = concat(["gcloud", "compute", "project-info", "add-metadata","--format=json"],
     param.metadata != null ? ["--metadata", param.metadata] : [])
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
@@ -31,6 +31,6 @@ pipeline "add_metadata_to_compute_project_info" {
 
   output "project_metadata" {
     description = "Information about the updated project metadata."
-    value       = step.container.add_metadata_to_compute_project_info.stdout
+    value       = jsondecode(step.container.add_metadata_to_compute_project_info.stdout)
   }
 }

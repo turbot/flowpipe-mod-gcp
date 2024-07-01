@@ -31,7 +31,7 @@ pipeline "remove_metadata_from_instance" {
 
   step "container" "remove_metadata_from_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = concat(["gcloud", "compute", "instances", "remove-metadata", param.instance_name, "--zone", param.zone],
+    cmd   = concat(["gcloud", "compute", "instances", "remove-metadata", param.instance_name, "--zone", param.zone, "--format=json"],
       param.metadata_key != null ? ["--keys", param.metadata_key]:[])
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id

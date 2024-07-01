@@ -31,7 +31,7 @@ pipeline "add_metadata_to_instance" {
 
   step "container" "add_metadata_to_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = concat(["gcloud", "compute", "instances", "add-metadata", param.instance_name, "--zone", param.zone],
+    cmd   = concat(["gcloud", "compute", "instances", "add-metadata", param.instance_name, "--zone", param.zone, "--format=json"],
     param.metadata != null ? ["--metadata", param.metadata]:[])
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
@@ -41,6 +41,6 @@ pipeline "add_metadata_to_instance" {
 
   output "instance" {
     description = "Information about the updated instance."
-    value       = step.container.add_metadata_to_instance
+    value       = jsondecode(step.container.add_metadata_to_instance)
   }
 }

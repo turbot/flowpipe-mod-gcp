@@ -37,7 +37,7 @@ pipeline "update_backend_service" {
 
   step "container" "update_backend_service" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = concat(["gcloud", "compute", "backend-services", "update", param.service_name, "--region", param.region], 
+    cmd   = concat(["gcloud", "compute", "backend-services", "update", param.service_name, "--region", param.region, "--format=json"], 
     param.enable_logging == true ? ["--enable-logging"]: [],
     param.logging_sample_rate != null ? ["--logging-sample-rate", param.logging_sample_rate] : [],
     )
@@ -45,5 +45,9 @@ pipeline "update_backend_service" {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
+  }
+
+  output "backend_service" {
+    value = jsondecode(step.container.update_backend_service.output)
   }
 }
