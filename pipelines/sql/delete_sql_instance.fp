@@ -20,7 +20,7 @@ pipeline "delete_sql_instance" {
 
   step "container" "delete_sql_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = ["gcloud", "sql", "instances", "delete", param.instance_name, "--format=json"]
+    cmd   = ["gcloud", "sql", "instances", "delete", param.instance_name, "--format=json", "--quiet"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
