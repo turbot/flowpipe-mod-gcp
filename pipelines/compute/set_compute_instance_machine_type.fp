@@ -1,4 +1,4 @@
-pipeline "set_machine_type" {
+pipeline "set_compute_instance_machine_type" {
   title       = "Set Machine Type"
   description = "This pipeline is used to set the machine type of a Compute Engine virtual machine. Changing the machine type stops the instance and starts it again with the new machine type."
 
@@ -20,15 +20,15 @@ pipeline "set_machine_type" {
 
   param "instance_name" {
     type        = string
-    description = "The GCP instance name."
+    description = "The GCP compute instance name."
   }
 
   param "machine_type" {
     type        = string
-    description = "The new machine type to set for the instance."
+    description = "The new machine type to set for the compute instance."
   }
 
-  step "container" "set_machine_type" {
+  step "container" "set_compute_instance_machine_type" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd   = ["gcloud", "compute", "instances", "set-machine-type", param.instance_name, "--zone", param.zone, "--machine-type", param.machine_type, "--format=json"]
     env = {

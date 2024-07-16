@@ -1,5 +1,5 @@
-pipeline "update_node_group" {
-  title       = "Update Node Group"
+pipeline "update_compute_node_group" {
+  title       = "Update Compute Node Group"
   description = "This pipeline updates a sole-tenancy node group."
 
   param "cred" {
@@ -35,7 +35,7 @@ pipeline "update_node_group" {
     optional    = true
   }
 
-  step "container" "update_node_group" {
+  step "container" "update_compute_node_group" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd = concat(
       ["gcloud", "compute", "sole-tenancy", "node-groups", "update", param.node_group_name, "--zone", param.zone, "--format=json"],

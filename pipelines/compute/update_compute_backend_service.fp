@@ -1,5 +1,5 @@
-pipeline "update_backend_service" {
-  title       = "Update Backend Service"
+pipeline "update_compute_backend_service" {
+  title       = "Update Compute Backend Service"
   description = "This pipeline updates a Google Compute Engine backend service to enable logging with a specified logging sample rate."
 
   param "cred" {
@@ -35,9 +35,9 @@ pipeline "update_backend_service" {
     optional    = true
   }
 
-  step "container" "update_backend_service" {
+  step "container" "update_compute_backend_service" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = concat(["gcloud", "compute", "backend-services", "update", param.service_name, "--region", param.region, "--format=json"], 
+    cmd   = concat(["gcloud", "compute", "backend-services", "update", param.service_name, "--region", param.region, "--format=json"],
     param.enable_logging == true ? ["--enable-logging"]: [],
     param.logging_sample_rate != null ? ["--logging-sample-rate", param.logging_sample_rate] : [],
     )
@@ -48,6 +48,6 @@ pipeline "update_backend_service" {
   }
 
   output "backend_service" {
-    value = jsondecode(step.container.update_backend_service.output)
+    value = jsondecode(step.container.update_compute_backend_service.output)
   }
 }

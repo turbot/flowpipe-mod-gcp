@@ -1,4 +1,4 @@
-pipeline "set_service_account_for_instance" {
+pipeline "set_service_account_for_compute_instance" {
   title       = "Set Service Account for Instance"
   description = "This pipeline sets the service account and scopes for a Google Compute Engine instance."
 
@@ -20,7 +20,7 @@ pipeline "set_service_account_for_instance" {
 
   param "instance_name" {
     type        = string
-    description = "The name of the instance."
+    description = "The name of the compute instance."
   }
 
   param "service_account" {
@@ -35,7 +35,7 @@ pipeline "set_service_account_for_instance" {
     optional    = true
   }
 
-  step "container" "set_service_account_for_instance" {
+  step "container" "set_service_account_for_compute_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd = concat(
       ["gcloud", "compute", "instances", "set-service-account", param.instance_name, "--zone", param.zone, "--format=json"],
@@ -48,7 +48,7 @@ pipeline "set_service_account_for_instance" {
     }
   }
 
-  output "instance_service_account" {
+  output "set_service_account_for_compute_instance" {
     description = "Information about the updated instance service account and scopes."
     value       = jsondecode(step.container.set_service_account_for_instance.stdout)
   }

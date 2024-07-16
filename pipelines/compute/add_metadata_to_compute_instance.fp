@@ -1,4 +1,4 @@
-pipeline "add_metadata_to_instance" {
+pipeline "add_metadata_to_compute_instance" {
   title       = "Add Metadata to Instance"
   description = "This pipeline adds metadata to a Google Compute Engine instance to block project-wide SSH keys."
 
@@ -20,16 +20,16 @@ pipeline "add_metadata_to_instance" {
 
   param "instance_name" {
     type        = string
-    description = "The name of the instance."
+    description = "The name of the compute instance."
   }
 
   param "metadata" {
     type        = string
-    description = "The metadata to add to the instance."
+    description = "The metadata to add to the compute instance."
     optional    = true
   }
 
-  step "container" "add_metadata_to_instance" {
+  step "container" "add_metadata_to_compute_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd   = concat(["gcloud", "compute", "instances", "add-metadata", param.instance_name, "--zone", param.zone, "--format=json"],
     param.metadata != null ? ["--metadata", param.metadata]:[])
@@ -40,7 +40,7 @@ pipeline "add_metadata_to_instance" {
   }
 
   output "instance" {
-    description = "Information about the updated instance."
-    value       = jsondecode(step.container.add_metadata_to_instance)
+    description = "Information about the updated compute instance."
+    value       = jsondecode(step.container.add_metadata_to_compute_instance)
   }
 }

@@ -1,4 +1,4 @@
-pipeline "delete_access_config_from_instance" {
+pipeline "delete_access_config_from_compute_instance" {
   title       = "Delete Access Config from Instance"
   description = "This pipeline deletes an access configuration from a Google Compute Engine instance."
 
@@ -20,7 +20,7 @@ pipeline "delete_access_config_from_instance" {
 
   param "instance_name" {
     type        = string
-    description = "The name of the instance."
+    description = "The name of the compute instance."
   }
 
   param "access_config_name" {
@@ -29,7 +29,7 @@ pipeline "delete_access_config_from_instance" {
     optional    = true
   }
 
-  step "container" "delete_access_config_from_instance" {
+  step "container" "delete_access_config_from_compute_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd = concat(
       ["gcloud", "compute", "instances", "delete-access-config", param.instance_name, "--zone", param.zone,"--format=json"],
@@ -43,6 +43,6 @@ pipeline "delete_access_config_from_instance" {
 
   output "instance_access_config" {
     description = "Information about the updated instance access configuration."
-    value       = jsondecode(step.container.delete_access_config_from_instance.stdout)
+    value       = jsondecode(step.container.delete_access_config_from_compute_instance.stdout)
   }
 }

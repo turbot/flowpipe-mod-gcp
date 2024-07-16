@@ -1,4 +1,4 @@
-pipeline "remove_metadata_from_instance" {
+pipeline "remove_metadata_from_compute_instance" {
   title       = "Remove Metadata from Instance"
   description = "This pipeline removes specific metadata from a Google Compute Engine instance."
 
@@ -20,7 +20,7 @@ pipeline "remove_metadata_from_instance" {
 
   param "instance_name" {
     type        = string
-    description = "The name of the instance."
+    description = "The name of the compute instance."
   }
 
   param "metadata_key" {
@@ -29,7 +29,7 @@ pipeline "remove_metadata_from_instance" {
     optional    = true
   }
 
-  step "container" "remove_metadata_from_instance" {
+  step "container" "remove_metadata_from_compute_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd   = concat(["gcloud", "compute", "instances", "remove-metadata", param.instance_name, "--zone", param.zone, "--format=json"],
       param.metadata_key != null ? ["--keys", param.metadata_key]:[])
@@ -40,7 +40,7 @@ pipeline "remove_metadata_from_instance" {
   }
 
   output "instance_metadata" {
-    description = "Information about the updated instance metadata."
-    value       = step.container.remove_metadata_from_instance.stdout
+    description = "Information about the updated compute instance metadata."
+    value       = step.container.remove_metadata_from_compute_instance.stdout
   }
 }
