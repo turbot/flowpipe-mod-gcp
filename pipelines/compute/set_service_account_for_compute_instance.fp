@@ -48,8 +48,8 @@ pipeline "set_service_account_for_compute_instance" {
     }
   }
 
-  output "set_service_account_for_compute_instance" {
-    description = "Information about the updated instance service account and scopes."
-    value       = jsondecode(step.container.set_service_account_for_compute_instance.stdout)
-  }
+  // output "set_service_account_for_compute_instance" {
+  //   description = "Information about the updated instance service account and scopes."
+  //   value       = jsondecode(step.container.set_service_account_for_instance.stdout)
+  // }
 }
