@@ -23,14 +23,6 @@ pipeline "remove_labels_from_storage_bucket" {
     description = "The GCP labels to remove."
   }
 
-  step "container" "print_command" {
-    image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd = [
-      "sh", "-c",
-      format("echo gcloud storage buckets update gs://%s --remove-labels=%s", param.bucket_name, join(",", param.labels))
-    ]
-  }
-
   step "container" "remove_labels_from_storage_bucket" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd = [
@@ -41,7 +33,6 @@ pipeline "remove_labels_from_storage_bucket" {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
     }
-    depends_on = [step.container.print_command]
   }
 
   output "bucket" {
