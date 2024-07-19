@@ -1,4 +1,4 @@
-pipeline "remove_labels_from_pubsub_topic" {
+pipeline "remove_specific_label_from_pubsub_topic" {
   title       = "Remove Labels from Pub/Sub Topic"
   description = "This pipeline removes specified labels from a Google Cloud Pub/Sub topic."
 
@@ -23,7 +23,7 @@ pipeline "remove_labels_from_pubsub_topic" {
     description = "The GCP label keys to remove."
   }
 
-  step "container" "remove_labels_from_pubsub_topic" {
+  step "container" "remove_specific_label_from_pubsub_topic" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd   = ["gcloud", "pubsub", "topics", "update", param.topic_name, "--remove-labels", join(",", param.label_keys), "--format=json"]
     env = {
@@ -34,6 +34,6 @@ pipeline "remove_labels_from_pubsub_topic" {
 
   output "topic" {
     description = "Information about the Pub/Sub topic."
-    value       = jsondecode(step.container.remove_labels_from_pubsub_topic.stdout)
+    value       = jsondecode(step.container.remove_specific_label_from_pubsub_topic.stdout)
   }
 }

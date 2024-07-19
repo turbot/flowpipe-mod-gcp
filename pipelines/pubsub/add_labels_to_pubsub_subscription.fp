@@ -1,4 +1,4 @@
-pipeline "update_labels_on_pubsub_subscription" {
+pipeline "add_labels_to_pubsub_subscription" {
   title       = "Update Labels on Pub/Sub Subscription"
   description = "This pipeline updates labels on a Google Cloud Pub/Sub subscription."
 
@@ -23,7 +23,7 @@ pipeline "update_labels_on_pubsub_subscription" {
     description = "The GCP labels to add or update."
   }
 
-  step "container" "update_labels_on_pubsub_subscription" {
+  step "container" "add_labels_to_pubsub_subscription" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd   = ["gcloud", "pubsub", "subscriptions", "update", param.subscription_name, "--update-labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--format=json"]
     env = {
@@ -34,6 +34,6 @@ pipeline "update_labels_on_pubsub_subscription" {
 
   output "subscription" {
     description = "Information about the Pub/Sub subscription."
-    value       = jsondecode(step.container.update_labels_on_pubsub_subscription.stdout)
+    value       = jsondecode(step.container.add_labels_to_pubsub_subscription.stdout)
   }
 }

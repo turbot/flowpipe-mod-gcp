@@ -1,4 +1,4 @@
-pipeline "remove_labels_from_pubsub_subscription" {
+pipeline "remove_specific_label_from_pubsub_subscription" {
   title       = "Remove Labels from Pub/Sub Subscription"
   description = "This pipeline removes specified labels from a Google Cloud Pub/Sub subscription."
 
@@ -23,7 +23,7 @@ pipeline "remove_labels_from_pubsub_subscription" {
     description = "The GCP label keys to remove."
   }
 
-  step "container" "remove_labels_from_pubsub_subscription" {
+  step "container" "remove_specific_label_from_pubsub_subscription" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd   = ["gcloud", "pubsub", "subscriptions", "update", param.subscription_name, "--remove-labels", join(",", param.label_keys), "--format=json"]
     env = {
@@ -34,6 +34,6 @@ pipeline "remove_labels_from_pubsub_subscription" {
 
   output "subscription" {
     description = "Information about the Pub/Sub subscription."
-    value       = jsondecode(step.container.remove_labels_from_pubsub_subscription.stdout)
+    value       = jsondecode(step.container.remove_specific_label_from_pubsub_subscription.stdout)
   }
 }
