@@ -1,4 +1,4 @@
-pipeline "add_update_labels_to_dataproc_cluster" {
+pipeline "add_labels_to_dataproc_cluster" {
   title       = "Add or Update Labels on Dataproc Cluster"
   description = "This pipeline adds or updates labels on a Google Cloud Dataproc cluster."
 
@@ -28,7 +28,7 @@ pipeline "add_update_labels_to_dataproc_cluster" {
     description = "The GCP labels to add or update."
   }
 
-  step "container" "add_update_labels_to_dataproc_cluster" {
+  step "container" "add_labels_to_dataproc_cluster" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd   = ["gcloud", "dataproc", "clusters", "update", param.cluster_name, "--region", param.region, "--update-labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--format=json"]
     env = {
@@ -39,6 +39,6 @@ pipeline "add_update_labels_to_dataproc_cluster" {
 
   output "cluster" {
     description = "Information about the Dataproc cluster."
-    value       = jsondecode(step.container.add_update_labels_to_dataproc_cluster.stdout)
+    value       = jsondecode(step.container.add_labels_to_dataproc_cluster.stdout)
   }
 }

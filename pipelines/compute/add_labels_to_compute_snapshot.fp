@@ -1,4 +1,4 @@
-pipeline "add_update_labels_to_compute_snapshot" {
+pipeline "add_labels_to_compute_snapshot" {
   title       = "Add or Update Labels on Compute Snapshot"
   description = "This pipeline adds or updates labels on a Google Compute Engine snapshot."
 
@@ -23,7 +23,7 @@ pipeline "add_update_labels_to_compute_snapshot" {
     description = "The GCP labels."
   }
 
-  step "container" "add_update_labels_to_compute_snapshot" {
+  step "container" "add_labels_to_compute_snapshot" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
     cmd   = ["gcloud", "compute", "snapshots", "add-labels", param.snapshot_name, "--labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--format=json"]
     env = {
@@ -34,6 +34,6 @@ pipeline "add_update_labels_to_compute_snapshot" {
 
   output "snapshot" {
     description = "Information about the GCP compute snapshot."
-    value       = jsondecode(step.container.add_update_labels_to_compute_snapshot.stdout)
+    value       = jsondecode(step.container.add_labels_to_compute_snapshot.stdout)
   }
 }
