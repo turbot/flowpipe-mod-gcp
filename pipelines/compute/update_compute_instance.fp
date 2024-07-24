@@ -35,11 +35,26 @@ pipeline "update_compute_instance" {
     description = "The GCP instance name."
   }
 
+  param "shielded_vtpm" {
+    type        = bool
+    description = "Enable Shielded vTPM."
+    optional    = true
+  }
+
+  param "shielded_integrity_monitoring" {
+    type        = bool
+    description = "Enable Shielded VM Integrity Monitoring."
+    optional    = true
+  }
+
   step "container" "update_compute_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd = concat(["gcloud", "compute", "instances", "update", param.instance_name, "--zone", param.zone, "--format=json"],
+    cmd = concat(
+      ["gcloud", "compute", "instances", "update", param.instance_name, "--zone", param.zone, "--format=json"],
       param.remove_labels != null ? ["--remove-labels", join(",", param.remove_labels)] : [],
-      param.update_labels != null ? ["--update-labels", join(",", [for key, value in param.update_labels : "${key}=${value}"])] : []
+      param.update_labels != null ? ["--update-labels", join(",", [for key, value in param.update_labels : "${key}=${value}"])] : [],
+      param.shielded_vtpm ? ["--shielded-vtpm"] : [],
+      param.shielded_integrity_monitoring ? ["--shielded-integrity-monitoring"] : []
     )
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
