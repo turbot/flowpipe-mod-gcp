@@ -1,3 +1,9 @@
+## v0.3.0 [2024-07-24]
+
+_What's new?_
+
+- Added 52 new pipelines for seamless integration with your Compute, DataProc, DNS, IAM, KMS, Storage resources, and more. ([#10](https://github.com/turbot/flowpipe-mod-gcp/pull/10))
+
 ## v0.2.0 [2024-02-02]
 
 _Bug fixes_

@@ -1,6 +1,6 @@
-pipeline "delete_sql_instance" {
-  title       = "Delete Cloud SQL Instance"
-  description = "This pipeline deletes a Cloud SQL instance."
+pipeline "delete_compute_snapshot" {
+  title       = "Delete Compute Engine Snapshot"
+  description = "This pipeline deletes a snapshot of a persistent disk in Google Cloud Compute Engine."
 
   param "cred" {
     type        = string
@@ -13,14 +13,14 @@ pipeline "delete_sql_instance" {
     description = local.project_id_param_description
   }
 
-  param "instance_name" {
+  param "snapshot_name" {
     type        = string
-    description = "The name of the Cloud SQL instance to delete."
+    description = "The name of the snapshot to be deleted."
   }
 
-  step "container" "delete_sql_instance" {
+  step "container" "delete_compute_snapshot" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = ["gcloud", "sql", "instances", "delete", param.instance_name, "--format=json", "--quiet"]
+    cmd   = ["gcloud", "compute", "snapshots", "delete", param.snapshot_name, "--quiet", "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
