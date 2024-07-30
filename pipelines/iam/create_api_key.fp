@@ -5,19 +5,16 @@ pipeline "create_api_key" {
   param "cred" {
     type        = string
     description = local.creds_param_description
-    default     = "default"
   }
 
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default = "parker-aaa"
   }
 
   param "key_name" {
     type        = string
     description = "The display name of the API key."
-    default = "my-api-key"
   }
 
   step "container" "create_api_key" {
