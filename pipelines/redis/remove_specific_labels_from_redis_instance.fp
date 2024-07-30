@@ -8,6 +8,11 @@ pipeline "remove_labels_from_redis_instance" {
     default     = "default"
   }
 
+  param "region" {
+    type        = string
+    description = "The GCP region."
+  }
+
   param "project_id" {
     type        = string
     description = "The GCP project ID."
@@ -25,7 +30,7 @@ pipeline "remove_labels_from_redis_instance" {
 
   step "container" "remove_labels_from_redis_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = ["gcloud", "redis", "instances", "update", param.instance_name, "--remove-labels", join(",", param.label_keys), "--quiet", "--format=json"]
+    cmd   = ["gcloud", "redis", "instances", "update", param.instance_name, "--remove-labels", join(",", param.label_keys), "--region", param.region, "--quiet", "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token

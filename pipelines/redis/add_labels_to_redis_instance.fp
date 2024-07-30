@@ -8,6 +8,11 @@ pipeline "add_labels_to_redis_instance" {
     default     = "default"
   }
 
+  param "region" {
+    type        = string
+    description = "The GCP region."
+  }
+
   param "project_id" {
     type        = string
     description = "The GCP project ID."
@@ -25,7 +30,7 @@ pipeline "add_labels_to_redis_instance" {
 
   step "container" "add_labels_to_redis_instance" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = ["gcloud", "redis", "instances", "update", param.instance_name, "--update-labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--quiet", "--format=json"]
+    cmd   = ["gcloud", "redis", "instances", "update", param.instance_name, "--update-labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--region", param.region, "--quiet", "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token

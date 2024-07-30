@@ -30,7 +30,8 @@ pipeline "remove_labels_from_compute_forwarding_rule" {
 
   step "container" "remove_labels_from_compute_forwarding_rule" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = ["gcloud", "compute", "forwarding-rules", "update", param.forwarding_rule_name, "--region", param.region, "--remove-labels", join(",", param.label_keys), "--quiet", "--format=json"]
+    cmd   = concat(["gcloud", "compute", "forwarding-rules", "update", param.forwarding_rule_name, "--remove-labels", join(",", param.label_keys), "--quiet", "--format=json"],
+    param.region != "" ? ["--region", param.region] : ["--global"])
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token

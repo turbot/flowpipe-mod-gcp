@@ -15,7 +15,7 @@ pipeline "add_labels_to_compute_forwarding_rule" {
 
   param "region" {
     type        = string
-    description = "The region where the Forwarding Rule is located."
+    description = "The region of the Forwarding Rule."
   }
 
   param "forwarding_rule_name" {
@@ -30,7 +30,8 @@ pipeline "add_labels_to_compute_forwarding_rule" {
 
   step "container" "add_labels_to_compute_forwarding_rule" {
     image = "gcr.io/google.com/cloudsdktool/google-cloud-cli"
-    cmd   = ["gcloud", "compute", "forwarding-rules", "update", param.forwarding_rule_name, "--region", param.region, "--update-labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--quiet", "--format=json"]
+    cmd   = concat(["gcloud", "compute", "forwarding-rules", "update", param.forwarding_rule_name, "--update-labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--quiet", "--format=json"],
+    param.region != "" ? ["--region", param.region] : ["--global"])
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
