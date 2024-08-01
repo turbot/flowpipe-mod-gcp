@@ -53,7 +53,7 @@ pipeline "update_storage_bucket" {
     cmd = concat(["gcloud", "storage", "buckets", "update", "gs://${param.bucket_name}", "--format=json"],
       param.retention_period != null ? ["--retention-period", param.retention_period] : [],
       param.lifecycle_policy != null ? ["--lifecycle-file", param.lifecycle_policy] : [],
-      param.clear_retention_period == true? ["--clear-retention-period"] : []
+      param.clear_retention_period == true? ["--clear-retention-period"] : [],
       param.public_access_prevention == true ? ["--public-access-prevention"] : [],
       param.uniform_bucket_level_access == true ? ["--uniform-bucket-level-access"] : [])
     env = {
