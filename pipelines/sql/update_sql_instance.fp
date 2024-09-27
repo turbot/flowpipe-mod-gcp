@@ -18,15 +18,9 @@ pipeline "update_sql_instance" {
     description = "The name of the SQL instance."
   }
 
-  param "database_flag_key" {
+  param "database_flags" {
     type        = string
-    description = "The database flag to set."
-    optional    = true
-  }
-
-  param "database_flag_value" {
-    type        = string
-    description = "The value for the database flag."
+    description = "The database flags to set in format key=value."
     optional    = true
   }
 
@@ -75,7 +69,7 @@ pipeline "update_sql_instance" {
       param.backup_start_time != null ? ["--backup-start-time", param.backup_start_time] : [],
       param.network != null ? ["--network", param.network] : [],
       param.disable_public_ip != null ? ["--no-assign-ip"] : [],
-    param.database_flag_key != null ? ["--database-flags", "${param.database_flag_key}=${param.database_flag_value}"] : [])
+      param.database_flags != null ? ["--database-flags", param.database_flags] : [])
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
       CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
