@@ -2,10 +2,10 @@ pipeline "delete_all_objects_and_storage_bucket" {
   title       = "Delete All Objects and Storage Bucket"
   description = "This pipeline deletes all objects and the bucket from Google Cloud Storage."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -26,7 +26,7 @@ pipeline "delete_all_objects_and_storage_bucket" {
     ]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

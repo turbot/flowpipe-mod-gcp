@@ -2,10 +2,10 @@ pipeline "update_compute_backend_service" {
   title       = "Update Compute Backend Service"
   description = "This pipeline updates a Google Compute Engine backend service to enable logging with a specified logging sample rate."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -43,7 +43,7 @@ pipeline "update_compute_backend_service" {
     )
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

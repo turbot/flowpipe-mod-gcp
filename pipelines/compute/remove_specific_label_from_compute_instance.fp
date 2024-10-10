@@ -2,10 +2,10 @@ pipeline "remove_specific_label_from_compute_instance" {
   title       = "Remove Specific Label from Compute Instance"
   description = "This pipeline removes specific labels from a Google Compute Engine virtual machine instance."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -33,7 +33,7 @@ pipeline "remove_specific_label_from_compute_instance" {
     cmd   = ["gcloud", "compute", "instances", "remove-labels", param.instance_name, "--zone", param.zone, "--labels", join(",", param.label_keys), "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

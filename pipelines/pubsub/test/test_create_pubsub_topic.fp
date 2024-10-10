@@ -6,10 +6,10 @@ pipeline "test_create_pubsub_topic" {
     type = "test"
   }
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -25,9 +25,9 @@ pipeline "test_create_pubsub_topic" {
   step "pipeline" "create_pubsub_topic" {
     pipeline = pipeline.create_pubsub_topics
     args = {
-      application_credentials_path = param.application_credentials_path
-      project_id                   = param.project_id
-      topic_names                  = param.topic_name
+      conn        = param.conn
+      project_id  = param.project_id
+      topic_names = param.topic_name
     }
   }
 
@@ -35,9 +35,9 @@ pipeline "test_create_pubsub_topic" {
     depends_on = [step.pipeline.create_pubsub_topic]
     pipeline   = pipeline.delete_pubsub_topics
     args = {
-      application_credentials_path = param.application_credentials_path
-      project_id                   = param.project_id
-      topic_names                  = param.topic_name
+      conn        = param.conn
+      project_id  = param.project_id
+      topic_names = param.topic_name
     }
   }
 

@@ -2,10 +2,10 @@ pipeline "add_labels_to_compute_snapshot" {
   title       = "Add or Update Labels on Compute Snapshot"
   description = "This pipeline adds or updates labels on a Google Compute Engine snapshot."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -28,7 +28,7 @@ pipeline "add_labels_to_compute_snapshot" {
     cmd   = ["gcloud", "compute", "snapshots", "add-labels", param.snapshot_name, "--labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

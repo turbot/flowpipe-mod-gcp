@@ -3,13 +3,13 @@ pipeline "attach_compute_disk_to_instance" {
   description = "This pipeline is used to attach a disk to an instance."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -37,7 +37,7 @@ pipeline "attach_compute_disk_to_instance" {
     cmd   = ["gcloud", "compute", "instances", "attach-disk", param.instance_name, "--disk", param.disk_name, "--zone", param.zone, "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

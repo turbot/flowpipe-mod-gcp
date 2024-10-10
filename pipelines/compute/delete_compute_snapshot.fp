@@ -2,10 +2,10 @@ pipeline "delete_compute_snapshot" {
   title       = "Delete Compute Engine Snapshot"
   description = "This pipeline deletes a snapshot of a persistent disk in Google Cloud Compute Engine."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -23,7 +23,7 @@ pipeline "delete_compute_snapshot" {
     cmd   = ["gcloud", "compute", "snapshots", "delete", param.snapshot_name, "--quiet", "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 }

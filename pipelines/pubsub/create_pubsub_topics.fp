@@ -2,10 +2,10 @@ pipeline "create_pubsub_topics" {
   title       = "Create Pub/Sub Topics"
   description = "This pipeline creates one or more Cloud Pub/Sub topics."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -32,7 +32,7 @@ pipeline "create_pubsub_topics" {
     )
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 }

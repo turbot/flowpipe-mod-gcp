@@ -2,10 +2,10 @@ pipeline "add_labels_to_compute_image" {
   title       = "Add Labels to Compute Image"
   description = "This pipeline adds labels to a Google Compute Engine virtual machine image."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -31,7 +31,7 @@ pipeline "add_labels_to_compute_image" {
     )
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 
