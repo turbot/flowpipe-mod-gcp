@@ -107,7 +107,7 @@ flowpipe pipeline run create_compute_instance --arg project_id=my-project --arg 
 To use a specific `connection`, specify the `conn` pipeline argument:
 
 ```sh
-flowpipe pipeline run create_compute_instance --arg project_id=my-project --arg instance_name=i-1234567890abcdef0 --arg conn=gcp_token --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
+flowpipe pipeline run create_compute_instance --arg project_id=my-project --arg instance_name=i-1234567890abcdef0 --arg conn=connection.gcp.gcp_token --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
 ```
 
 ## Open Source & Contributing
