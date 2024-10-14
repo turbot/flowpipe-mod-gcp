@@ -11,4 +11,10 @@ mod "gcp" {
     description = "Run pipelines to supercharge your GCP workflows using Flowpipe."
     image       = "/images/mods/turbot/gcp-social-graphic.png"
   }
+
+  require {
+    flowpipe {
+      min_version = "1.0.0"
+    }
+  }
 }
