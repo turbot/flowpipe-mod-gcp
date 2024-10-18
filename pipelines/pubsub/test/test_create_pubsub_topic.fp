@@ -3,7 +3,7 @@ pipeline "test_create_pubsub_topic" {
   description = "Create and delete Pub/Sub topics in a GCP project."
 
   tags = {
-    type = "test"
+    folder = "Tests"
   }
 
   param "conn" {
