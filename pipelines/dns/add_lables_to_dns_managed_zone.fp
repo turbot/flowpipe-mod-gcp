@@ -2,10 +2,10 @@ pipeline "add_labels_to_dns_managed_zone" {
   title       = "Add Labels to DNS Managed Zone"
   description = "This pipeline adds labels to a Google Cloud DNS managed zone."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -28,7 +28,7 @@ pipeline "add_labels_to_dns_managed_zone" {
     cmd   = ["gcloud", "dns", "managed-zones", "update", param.zone_name, "--update-labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

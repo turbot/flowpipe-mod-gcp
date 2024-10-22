@@ -2,10 +2,10 @@ pipeline "delete_redis_instance" {
   title       = "Delete Redis Instance"
   description = "This pipeline deletes a Google Cloud Redis instance."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -32,7 +32,7 @@ pipeline "delete_redis_instance" {
     ]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

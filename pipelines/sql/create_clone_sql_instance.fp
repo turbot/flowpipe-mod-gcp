@@ -2,10 +2,10 @@ pipeline "clone_sql_instance" {
   title       = "Clone Cloud SQL Instance"
   description = "This pipeline creates a clone of a Cloud SQL instance. The clone is an independent copy of the source instance with the same data and settings. Source and destination instances must be in the same project. An instance can be cloned from its current state, or from an earlier point in time."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -30,7 +30,7 @@ pipeline "clone_sql_instance" {
     ]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

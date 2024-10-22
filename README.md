@@ -21,27 +21,27 @@ brew tap turbot/tap
 brew install flowpipe
 ```
 
-### Credentials
+### Connections
 
 By default, the following environment variables will be used for authentication:
 
 - `GOOGLE_APPLICATION_CREDENTIALS`
 
-You can also create `credential` resources in configuration files:
+You can also create `connection` resources in configuration files:
 
 ```sh
 vi ~/.flowpipe/config/gcp.fpc
 ```
 
 ```hcl
-credential "gcp" "gcp_token" {
+connection "gcp" "gcp_token" {
   credentials = "path/to/credentials.json"
 }
 ```
 
 If no environment variables or configuration files are found, the mod will attempt to use [Application Default Credentials](https://cloud.google.com/docs/authentication/provide-credentials-adc) if configured.
 
-For more information on credentials in Flowpipe, please see [Managing Credentials](https://flowpipe.io/docs/run/credentials).
+For more information on connections in Flowpipe, please see [Managing Connections](https://flowpipe.io/docs/run/connections).
 
 ### Usage
 
@@ -104,10 +104,10 @@ Run a pipeline:
 flowpipe pipeline run create_compute_instance --arg project_id=my-project --arg instance_name=i-1234567890abcdef0 --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
 ```
 
-To use a specific `credential`, specify the `cred` pipeline argument:
+To use a specific `connection`, specify the `conn` pipeline argument:
 
 ```sh
-flowpipe pipeline run create_compute_instance --arg project_id=my-project --arg instance_name=i-1234567890abcdef0 --arg cred=gcp_token --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
+flowpipe pipeline run create_compute_instance --arg project_id=my-project --arg instance_name=i-1234567890abcdef0 --arg conn=connection.gcp.gcp_token --arg machine_type=n1-standard-1 --arg zone=us-central1-a --arg boot_disk_size="10"
 ```
 
 ## Open Source & Contributing

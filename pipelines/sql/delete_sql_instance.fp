@@ -2,10 +2,10 @@ pipeline "delete_sql_instance" {
   title       = "Delete Cloud SQL Instance"
   description = "This pipeline deletes a Cloud SQL instance."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -23,7 +23,7 @@ pipeline "delete_sql_instance" {
     cmd   = ["gcloud", "sql", "instances", "delete", param.instance_name, "--format=json", "--quiet"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 }

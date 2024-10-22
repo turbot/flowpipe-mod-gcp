@@ -2,10 +2,10 @@ pipeline "remove_specific_label_from_compute_snapshot" {
   title       = "Remove Labels from Compute Snapshot"
   description = "This pipeline removes specified labels from a Google Compute Engine snapshot."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -28,7 +28,7 @@ pipeline "remove_specific_label_from_compute_snapshot" {
     cmd   = ["gcloud", "compute", "snapshots", "remove-labels", param.snapshot_name, "--labels", join(",", param.label_keys), "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

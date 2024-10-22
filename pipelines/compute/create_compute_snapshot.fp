@@ -2,10 +2,10 @@ pipeline "create_compute_snapshot" {
   title       = "Create Compute Engine Snapshot"
   description = "This pipeline creates snapshot of persistent disk. Snapshots are useful for backing up persistent disk data and for creating custom images."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -33,7 +33,7 @@ pipeline "create_compute_snapshot" {
     cmd   = ["gcloud", "compute", "snapshots", "create", param.snapshot_name, "--source-disk-zone", param.source_disk_zone, "--source-disk", param.source_disk_name, "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

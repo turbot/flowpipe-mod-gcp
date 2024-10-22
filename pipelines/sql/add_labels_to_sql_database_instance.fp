@@ -2,10 +2,10 @@ pipeline "add_labels_to_sql_instance" {
   title       = "Add Labels to SQL Instance"
   description = "This pipeline adds labels to a Google Cloud SQL database instance."
 
-  param "cred" {
-    type        = string
-    description = "GCP credentials to use"
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -28,7 +28,7 @@ pipeline "add_labels_to_sql_instance" {
     cmd   = ["gcloud", "beta", "sql", "instances", "patch", param.instance_name, "--update-labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--quiet", "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

@@ -2,10 +2,10 @@ pipeline "remove_labels_from_sql_instance" {
   title       = "Remove Labels from SQL Instance"
   description = "This pipeline removes specified labels from a Google Cloud SQL database instance."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -28,7 +28,7 @@ pipeline "remove_labels_from_sql_instance" {
     cmd   = ["gcloud", "beta", "sql", "instances", "patch", param.instance_name, "--remove-labels", join(",", param.label_keys), "--quiet", "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

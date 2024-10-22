@@ -2,10 +2,10 @@ pipeline "add_labels_to_dataproc_cluster" {
   title       = "Add or Update Labels on Dataproc Cluster"
   description = "This pipeline adds or updates labels on a Google Cloud Dataproc cluster."
 
-  param "cred" {
-    type        = string
-    description = "GCP credentials to use"
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -33,7 +33,7 @@ pipeline "add_labels_to_dataproc_cluster" {
     cmd   = ["gcloud", "dataproc", "clusters", "update", param.cluster_name, "--region", param.region, "--update-labels", join(",", [for k, v in param.labels : "${k}=${v}"]), "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

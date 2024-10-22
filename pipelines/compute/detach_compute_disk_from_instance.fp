@@ -2,10 +2,10 @@ pipeline "detach_compute_disk_from_instance" {
   title       = "Detach Compute Disk from Instance"
   description = "This pipeline is used to detach disks from virtual machines."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -33,7 +33,7 @@ pipeline "detach_compute_disk_from_instance" {
     cmd   = ["gcloud", "compute", "instances", "detach-disk", param.instance_name, "--disk", param.disk_name, "--zone", param.zone, "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 
