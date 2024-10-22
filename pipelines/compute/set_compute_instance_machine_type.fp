@@ -2,10 +2,10 @@ pipeline "set_compute_instance_machine_type" {
   title       = "Set Machine Type"
   description = "This pipeline is used to set the machine type of a Compute Engine virtual machine. Changing the machine type stops the instance and starts it again with the new machine type."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -33,7 +33,7 @@ pipeline "set_compute_instance_machine_type" {
     cmd   = ["gcloud", "compute", "instances", "set-machine-type", param.instance_name, "--zone", param.zone, "--machine-type", param.machine_type, "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 }

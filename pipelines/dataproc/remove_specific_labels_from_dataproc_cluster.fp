@@ -2,10 +2,10 @@ pipeline "remove_labels_from_dataproc_cluster" {
   title       = "Remove Labels from Dataproc Cluster"
   description = "This pipeline removes specified labels from a Google Cloud Dataproc cluster."
 
-  param "cred" {
-    type        = string
-    description = "GCP credentials to use"
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -33,7 +33,7 @@ pipeline "remove_labels_from_dataproc_cluster" {
     cmd   = ["gcloud", "dataproc", "clusters", "update", param.cluster_name, "--region", param.region, "--remove-labels", join(",", param.label_keys), "--quiet", "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

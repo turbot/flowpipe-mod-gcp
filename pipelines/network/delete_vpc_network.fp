@@ -2,10 +2,10 @@ pipeline "delete_vpc_network" {
   title       = "Delete VPC Network"
   description = "This pipeline deletes Compute Engine networks. Networks can only be deleted when no other resources (e.g., virtual machine instances) refer to them."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -23,7 +23,7 @@ pipeline "delete_vpc_network" {
     cmd   = ["gcloud", "compute", "networks", "delete", param.network_name, "--format=json"]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 }

@@ -2,10 +2,10 @@ pipeline "update_sql_instance" {
   title       = "Update SQL Instance"
   description = "This pipeline updates the database flags for a Google Cloud SQL instance."
 
-  param "cred" {
-    type        = string
-    description = "The credential to use for authentication."
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -78,7 +78,7 @@ pipeline "update_sql_instance" {
     param.database_flag_key != null ? ["--database-flags", "${param.database_flag_key}=${param.database_flag_value}"] : [])
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

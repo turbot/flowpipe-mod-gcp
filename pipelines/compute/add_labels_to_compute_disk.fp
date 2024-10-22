@@ -2,10 +2,10 @@ pipeline "add_labels_to_compute_disk" {
   title       = "Add Labels to Compute Disk"
   description = "This pipeline adds labels to a Google Compute Engine persistent disk."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -36,7 +36,7 @@ pipeline "add_labels_to_compute_disk" {
     )
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

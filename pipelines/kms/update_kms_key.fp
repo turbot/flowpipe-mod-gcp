@@ -2,10 +2,10 @@ pipeline "update_kms_key" {
   title       = "Update KMS Key"
   description = "This pipeline updates the rotation settings of a KMS key."
 
-  param "cred" {
-    type        = string
-    description = "The credential to use for authentication."
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -44,7 +44,7 @@ pipeline "update_kms_key" {
     ]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

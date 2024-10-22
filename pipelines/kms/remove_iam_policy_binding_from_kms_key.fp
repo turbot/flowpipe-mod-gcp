@@ -2,10 +2,10 @@ pipeline "remove_iam_policy_binding_from_kms_key" {
   title       = "Remove IAM Policy Binding from KMS Key"
   description = "This pipeline removes an IAM policy binding from a Google Cloud KMS key."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -50,7 +50,7 @@ pipeline "remove_iam_policy_binding_from_kms_key" {
     ]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

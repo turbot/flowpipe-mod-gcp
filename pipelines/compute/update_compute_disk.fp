@@ -2,10 +2,10 @@ pipeline "update_compute_disk" {
   title       = "Update Compute Disk"
   description = "This pipeline updates a Compute Engine persistent disk."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
@@ -43,7 +43,7 @@ pipeline "update_compute_disk" {
     )
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 

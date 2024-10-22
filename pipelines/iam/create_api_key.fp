@@ -2,22 +2,20 @@ pipeline "create_api_key" {
   title       = "Create API Key"
   description = "This pipeline creates an API key in Google Cloud."
 
-  param "cred" {
-    type        = string
-    description = local.creds_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.gcp
+    description = local.conn_param_description
+    default     = connection.gcp.default
   }
 
   param "project_id" {
     type        = string
     description = local.project_id_param_description
-    default = "parker-aaa"
   }
 
   param "key_name" {
     type        = string
     description = "The display name of the API key."
-    default = "my-api-key"
   }
 
   step "container" "create_api_key" {
@@ -29,7 +27,7 @@ pipeline "create_api_key" {
     ]
     env = {
       CLOUDSDK_CORE_PROJECT      = param.project_id
-      CLOUDSDK_AUTH_ACCESS_TOKEN = credential.gcp[param.cred].access_token
+      CLOUDSDK_AUTH_ACCESS_TOKEN = param.conn.access_token
     }
   }
 
